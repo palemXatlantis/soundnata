@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoundNata - Music App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-gray-900 text-white">
+    <div class="flex h-screen">
+      <div class="bg-gray-800 p-6 w-64">
+        <div class="mb-8">
+          <div
+            class="text-2xl font-bold cursor-pointer hover:text-blue-500"
+            onclick="window.location.href='home.html'"
+          >
+            Home
+          </div>
+        </div>
+        <ul class="space-y-4">
+          <li>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">
+              Liked Songs
+            </a>
+          </li>
+          <li>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">
+              Favorite Songs
+            </a>
+          </li>
+          <li>
+            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">
+              Recently Played
+            </a>
+          </li>
+        </ul>
+        <div class="mt-10">
+          <h2 class="text-lg font-bold mb-4">Playlists</h2>
+          <div class="space-y-2">
+            <div class="flex items-center space-x-3">
+              <img
+                src="https://via.placeholder.com/50"
+                alt="Playlist"
+                class="rounded"
+              />
+              <div>
+                <p class="text-sm font-semibold">Daily Mix 1</p>
+                <p class="text-xs text-gray-400">By User</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <img
+                src="https://via.placeholder.com/50"
+                alt="Playlist"
+                class="rounded"
+              />
+              <div>
+                <p class="text-sm font-semibold">Chill Vibes</p>
+                <p class="text-xs text-gray-400">By User</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-1 p-6">
+        <div class="flex justify-center mb-8">
+          <input
+            type="text"
+            placeholder="Search for Music..."
+            class="w-full max-w-xl p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-8">
+          <div class="bg-gray-700 p-4 rounded-lg">
+            <img
+              src="https://via.placeholder.com/300"
+              alt="Featured"
+              class="w-full rounded-lg mb-4"
+            />
+            <h2 class="text-xl font-bold">Good Days</h2>
+            <p class="text-sm text-gray-400">SZA</p>
+          </div>
+          <div class="bg-gray-700 p-4 rounded-lg">
+            <img
+              src="https://via.placeholder.com/300"
+              alt="Featured"
+              class="w-full rounded-lg mb-4"
+            />
+            <h2 class="text-xl font-bold">Wake Up in the Sky</h2>
+            <p class="text-sm text-gray-400">Gucci mane, Bruno Mars</p>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-4">Recommended for You</h2>
+        <div class="grid grid-cols-5 gap-4">
+          <div class="bg-gray-700 p-4 rounded-lg">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Music 1"
+              class="w-full rounded-lg mb-2"
+            />
+            <p class="text-sm font-semibold">Work From Home</p>
+            <p class="text-xs text-gray-400">Ty Dolla</p>
+          </div>
+          <div class="bg-gray-700 p-4 rounded-lg">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Music 2"
+              class="w-full rounded-lg mb-2"
+            />
+            <p class="text-sm font-semibold">Song Title 2</p>
+            <p class="text-xs text-gray-400">By Artist</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fixed bottom-0 left-0 right-0 bg-gray-800 p-4">
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center">
+          <img
+            src="https://via.placeholder.com/50"
+            alt="Current Song"
+            class="rounded mr-4"
+          />
+          <div>
+            <p class="text-sm font-bold">Now Playing: Song Name</p>
+            <p class="text-xs text-gray-400">Artist</p>
+          </div>
+        </div>
+        <div class="flex space-x-4">
+          <button class="text-white hover:text-blue-500">Prev</button>
+          <button class="text-white hover:text-blue-500">Play</button>
+          <button class="text-white hover:text-blue-500">Next</button>
+        </div>
+        <div>
+          <input type="range" class="w-32" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
