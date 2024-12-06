@@ -3,7 +3,13 @@
     Created on : Dec 5, 2024, 10:58:51 PM
     Author     : Leptop
 --%>
-
+<%
+    String authenticatedUser = (String) session.getAttribute("authenticatedUser");
+    if(authenticatedUser != null){
+        response.sendRedirect("index.jsp");
+        return;
+    }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,16 +24,7 @@
     </head>
 
     <body class="bg-black text-white">
-        <nav class="bg-gray-800 p-4">
-            <div class="container mx-auto flex justify-center">
-                <h1 class="text-4xl">
-                    <a href="/soundnata/" class="hover:text-gray-400">
-                        Sound
-                        <span class="text-blue-500">Nata</span>
-                    </a>
-                </h1>
-            </div>
-        </nav>
+      <%@include file="WEB-INF/nav_auth.jsp" %>
 
         <div class="flex items-center justify-center min-h-screen">
             <div class="bg-gray-400 shadow-md rounded-lg p-8 w-full max-w-md">

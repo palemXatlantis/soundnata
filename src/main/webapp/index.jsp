@@ -3,7 +3,13 @@
     Created on : Dec 5, 2024, 8:01:34 PM
     Author     : Leptop
 --%>
-
+<%
+    String authenticatedUser = (String) session.getAttribute("authenticatedUser");
+    if(authenticatedUser == null){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,30 +23,7 @@
     />
   </head>
   <body class="bg-black text-white">
-    <nav class="bg-gray-800 p-4 fixed w-full z-10 top-0">
-      <div class="container mx-auto flex justify-between items-center">
-        <div class="flex items-center">
-          <h1 class="text-3xl font-bold">
-            <a href="/soundnata/" class="hover:text-gray-400">
-              Sound<span class="text-blue-500">Nata</span>
-            </a>
-          </h1>
-
-          <div class="ml-6 relative">
-            <input
-              type="text"
-              placeholder="Search for songs, artists..."
-              class="px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        </div>
-
-        <div class="flex items-center space-x-4">
-          <a href="login.jsp" class="hover:text-gray-400">login</a>
-          <a href="register.jsp" class="hover:text-gray-400">Register</a>
-        </div>
-      </div>
-    </nav>
+      <%@include file="WEB-INF/nav.jsp" %>
 
     <div class="flex pt-20">
       <aside class="bg-gray-900 w-64 p-6 fixed h-screen">

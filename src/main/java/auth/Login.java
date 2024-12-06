@@ -42,19 +42,14 @@ public class Login extends HttpServlet {
              ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE email='" + email + "'")) {
 
             if (rs.next()) {
-                System.out.println(rs.getString("email"));
-                // Verify the provided password against the hashed password
                 if (BCrypt.checkpw(password, rs.getString("password"))) {
-                    // Login successful, redirect or set session
-                    request.getSession().setAttribute("authenticatedUser", email);
+                    request.getSession().setAttribute("authenticatedUser", rs.getString("username"));
                     response.sendRedirect("index.jsp");
                 } else {
-                    // Login failed, handle error
                     request.setAttribute("error", "Invalid credentials");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
             } else {
-                // User not found, handle error
                 request.setAttribute("error", "User not found");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
