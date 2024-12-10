@@ -30,7 +30,7 @@ public class DBUtil extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String URL = "jdbc:mysql://localhost:3307/soundnata";
+    private static final String URL = "jdbc:mysql://localhost:3306/soundnata";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
