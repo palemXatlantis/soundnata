@@ -45,7 +45,10 @@
                     <p th:text="${song.title}" class="text-center"></p>
                     <button
                             class="play-song bg-blue-500 text-white rounded-lg px-4 py-2 mt-2"
-                            th:attr="data-id=${song.id}, data-title=${song.title}, data-artist=${song.artist}, data-url=${song.filePath}">
+                            th:data-id="${song.id}"
+                            th:data-title="${song.title}"
+                            th:data-artist="${song.artist}"
+                            th:data-url="${song.filePath}">
                         Play
                     </button>
                 </div>

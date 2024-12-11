@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private SongService songService;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -36,9 +34,4 @@ public class AuthController {
         return "login"; // Return the login view
     }
 
-    @GetMapping("/")
-    public String home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        model.addAttribute("songs", songService.getAllSongs());
-        return "home"; // Return the home view
-    }
 }
