@@ -24,7 +24,7 @@
                         id="email"
                         name="email"
                         class="p-2 w-full rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        placeholder="Masukkan email kamu.."
+                        placeholder="Enter Your Email"
                         required
                 />
                 <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
@@ -40,7 +40,7 @@
                         id="username"
                         name="username"
                         class="p-2 w-full rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        placeholder="Masukkan username kamu..."
+                        placeholder="Enter your username"
                         required
                 />
                 <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
@@ -57,7 +57,7 @@
                         id="name"
                         name="name"
                         class="p-2 w-full rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        placeholder="Masukkan nama kamu..."
+                        placeholder="Enter your name"."
                         required
                 />
                 <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
@@ -72,7 +72,7 @@
                         id="password"
                         name="password"
                         class="p-2 w-full rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        placeholder="Masukkan password kamu...."
+                        placeholder="Enter Password"
                         required
                 />
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
@@ -80,10 +80,10 @@
 
             <div class="flex justify-center mt-8">
                 <button
-                        class="bg-gray-500 px-5 py-3 rounded-full text-2xl text-center"
+                        class="bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 rounded-full text-2xl text-white"
                         type="submit"
                 >
-                    Create
+                    CREATE ACCOUNT
                 </button>
             </div>
         </form>
