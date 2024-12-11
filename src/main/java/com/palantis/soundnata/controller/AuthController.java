@@ -1,6 +1,7 @@
 package com.palantis.soundnata.controller;
 
 import com.palantis.soundnata.model.User;
+import com.palantis.soundnata.service.SongService;
 import com.palantis.soundnata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private SongService songService;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -35,6 +38,7 @@ public class AuthController {
 
     @GetMapping("/")
     public String home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        model.addAttribute("songs", songService.getAllSongs());
         return "home"; // Return the home view
     }
 }
