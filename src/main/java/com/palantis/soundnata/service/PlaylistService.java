@@ -1,7 +1,13 @@
 package com.palantis.soundnata.service;
 
+import com.palantis.soundnata.model.Playlist;
+import com.palantis.soundnata.model.Song;
+import com.palantis.soundnata.repository.PlaylistRepository;
+import com.palantis.soundnata.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PlaylistService {
@@ -10,7 +16,7 @@ public class PlaylistService {
     private PlaylistRepository playlistRepository;
 
     @Autowired
-    private LaguRepository laguRepository;
+    private SongRepository laguRepository;
 
     public List<Playlist> getAllPlaylists() {
         return playlistRepository.findAll();
@@ -32,7 +38,7 @@ public class PlaylistService {
         playlistRepository.deleteById(id);
     }
 
-    public void addLaguToPlaylist(Long playlistId, Lagu lagu) {
+    public void addLaguToPlaylist(Long playlistId, Song lagu) {
         Playlist playlist = getPlaylistById(playlistId);
         if (playlist != null) {
             lagu.setPlaylist(playlist);
@@ -43,7 +49,7 @@ public class PlaylistService {
     public void removeLaguFromPlaylist(Long playlistId, Long laguId) {
         Playlist playlist = getPlaylistById(playlistId);
         if (playlist != null) {
-            Lagu lagu = laguRepository.findById(laguId).orElse(null);
+            Song lagu = laguRepository.findById(laguId).orElse(null);
             if (lagu != null) {
                 lagu.setPlaylist(null);
                 laguRepository.save(lagu);
