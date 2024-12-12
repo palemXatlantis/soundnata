@@ -7,14 +7,13 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 
-<body class="bg-black text-white">
+<body>
 <div th:replace="fragments/nav_auth::nav"></div>
 
-<div class="flex items-center justify-center min-h-screen">
-    <div class="bg-gray-400 shadow-md rounded-lg p-8 w-full max-w-md">
-        <h1 class="text-3xl font-bold mb-6 text-center">Register</h1>
+<div class="flex items-center justify-self-end min-h-screen  bg-gray-800">
+    <div class="bg-black shadow-md rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-3xl font-bold mb-6 text-center text-white">Register Account</h1>
         <form th:action="@{/register}" th:object="${user}" class="flex flex-col space-y-4" method="POST">
-            <div th:if="${error}" class="error-message" th:text="${error}"></div>
             <div th:if="${error}" class="error-message" th:text="${error}"></div>
 
             <div>
@@ -41,7 +40,7 @@
                         id="username"
                         name="username"
                         class="p-2 w-full rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        placeholder="Enter your username"
+                        placeholder="Enter Your Username"
                         required
                 />
                 <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
@@ -49,14 +48,16 @@
             </div>
 
             <div>
-                <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
+                <label for="name" class="block mb-2 text-sm font-medium"
+                >Nama</label
+                >
                 <input
                         th:field="*{name}"
                         type="text"
                         id="name"
                         name="name"
                         class="p-2 w-full rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        placeholder="Enter your name"
+                        placeholder="Enter Your Name"
                         required
                 />
                 <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
@@ -71,7 +72,7 @@
                         id="password"
                         name="password"
                         class="p-2 w-full rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-                        placeholder="Enter Password"
+                        placeholder="Enter Your Password"
                         required
                 />
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
