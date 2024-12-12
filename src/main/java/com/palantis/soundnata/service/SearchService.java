@@ -25,7 +25,7 @@ public class SearchService {
     public Map<String, List<?>> search(String keyword) {
         Map<String, List<?>> results = new HashMap<>();
         results.put("songs", songRepository.findByTitleContainingIgnoreCase(keyword));
-        results.put("artists", userRepository.findByNameContainingIgnoreCase(keyword));
+        results.put("artists", songRepository.findByArtistContainingIgnoreCase(keyword));
         results.put("playlists", playlistRepository.findByNamaContainingIgnoreCase(keyword));
         return results;
     }
