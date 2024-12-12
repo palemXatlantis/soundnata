@@ -1,9 +1,6 @@
 package com.palantis.soundnata.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -25,4 +22,11 @@ public class Song {
 
     private Integer duration;
 
+    @ManyToOne
+    @JoinColumn(name = "playlist_id")
+    private Playlist playlist;
+
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
+    }
 }
