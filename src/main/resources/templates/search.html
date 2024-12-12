@@ -17,8 +17,36 @@
     <!-- Artists Section -->
     <h2 class="text-xl font-semibold mt-4">Artists</h2>
     <ul class="list-disc list-inside">
-        <li th:each="artist : ${results['artists']}" th:text="${artist.artist}"></li>
+        <li th:each="song : ${results['songs']}" th:text="${song.artist}"></li>
     </ul>
 </div>
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Search Results</title>-->
+<!--    <script src="https://cdn.tailwindcss.com"></script>-->
+<!--</head>-->
+<!--<body class="bg-gray-100 min-h-screen">-->
+<!--<div class="container mx-auto py-8">-->
+<!--    <h1 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h1>-->
+
+<!--    &lt;!&ndash; Songs Section &ndash;&gt;-->
+<!--    <h2 class="text-xl font-semibold mt-4">Songs and Artists</h2>-->
+<!--    <ul class="list-disc list-inside">-->
+<!--        <li th:each="song : ${results['songs']}">-->
+<!--            <span th:text="'Title: ' + ${song.title}"></span> - -->
+<!--            <span th:text="'Artist: ' + ${song.artist}"></span>-->
+<!--        </li>-->
+<!--    </ul>-->
+
+<!--    &lt;!&ndash; Playlists Section &ndash;&gt;-->
+<!--    <h2 class="text-xl font-semibold mt-4">Playlists</h2>-->
+<!--    <ul class="list-disc list-inside">-->
+<!--        <li th:each="playlist : ${results['playlists']}" th:text="${playlist.name}"></li>-->
+<!--    </ul>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
