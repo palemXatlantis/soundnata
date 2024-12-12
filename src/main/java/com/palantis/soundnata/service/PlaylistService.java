@@ -1,58 +1,61 @@
 package com.palantis.soundnata.service;
 
-package com.example.playlistmanagement.service;
-
-import com.example.playlistmanagement.model.Song;
-import com.example.playlistmanagement.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PlaylistService {
+
     @Autowired
-    private SongRepository songRepository;
+    private PlaylistRepository playlistRepository;
 
-    // Tambah lagu baru
-    public Song addSong(Song song) {
-        return songRepository.save(song);
+    @Autowired
+    private LaguRepository laguRepository;
+
+    public List<Playlist> getAllPlaylists() {
+        return playlistRepository.findAll();
     }
 
-    // Dapatkan semua lagu
-    public List<Song> getAllSongs() {
-        return songRepository.findAll();
+    public Playlist getPlaylistById(Long id) {
+        return playlistRepository.findById(id).orElse(null);
     }
 
-    // Dapatkan lagu berdasarkan ID
-    public Optional<Song> getSongById(Long id) {
-        return songRepository.findById(id);
+    public Playlist createPlaylist(Playlist playlist) {
+        return playlistRepository.save(playlist);
     }
 
-    // Edit lagu
-    public Song updateSong(Song song) {
-        return songRepository.save(song);
+    public Playlist updatePlaylist(Playlist playlist) {
+        return playlistRepository.save(playlist);
     }
 
-    // Hapus lagu
-    public void deleteSong(Long id) {
-        songRepository.deleteById(id);
+    public void deletePlaylist(Long id) {
+        playlistRepository.deleteById(id);
     }
 
-    // Hitung total lagu
-    public int getTotalSongCount() {
-        return songRepository.getTotalSongCount();
+    public void addLaguToPlaylist(Long playlistId, Lagu lagu) {
+        Playlist playlist = getPlaylistById(playlistId);
+        if (playlist != null) {
+            lagu.setPlaylist(playlist);
+            laguRepository.save(lagu);
+        }
     }
 
-    // Hitung total durasi playlist
-    public int getTotalPlaylistDuration() {
-        return songRepository.getTotalPlaylistDuration();
+    public void removeLaguFromPlaylist(Long playlistId, Long laguId) {
+        Playlist playlist = getPlaylistById(playlistId);
+        if (playlist != null) {
+            Lagu lagu = laguRepository.findById(laguId).orElse(null);
+            if (lagu != null) {
+                lagu.setPlaylist(null);
+                laguRepository.save(lagu);
+            }
+        }
     }
 
-    // Konversi durasi detik ke format mm:ss
-    public String formatDuration(int totalSeconds) {
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
-        return String.format("%02d:%02d", minutes, seconds);
+    public int countLagusInPlaylist(Long playlistId) {
+        Playlist playlist = getPlaylistById(playlistId);
+        if (playlist != null) {
+            return playlist.getLagus().size();
+        }
+        return 0;
     }
 }
