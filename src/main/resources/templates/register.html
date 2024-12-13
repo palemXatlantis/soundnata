@@ -10,7 +10,7 @@
 <body>
 <div th:replace="fragments/nav_auth::nav"></div>
 
-<div class="flex items-center justify-self-end min-h-screen  bg-gray-800">
+<div class="grid justify-items-end min-h-screen bg-gray-800">
     <div class="bg-black shadow-md rounded-lg p-8 w-full max-w-md">
         <h1 class="text-3xl font-bold mb-6 text-center text-white">Register Account</h1>
         <form th:action="@{/register}" th:object="${user}" class="flex flex-col space-y-4" method="POST">
@@ -80,7 +80,7 @@
 
             <div class="flex justify-center mt-8">
                 <button
-                        class="bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 rounded-full text-2xl text-white"
+                        class="bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 rounded-full text-2xl text-white "
                         type="submit"
                 >
                     CREATE ACCOUNT
