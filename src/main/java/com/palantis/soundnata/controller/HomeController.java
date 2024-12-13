@@ -1,5 +1,7 @@
 package com.palantis.soundnata.controller;
 
+import com.palantis.soundnata.model.Playlist;
+import com.palantis.soundnata.service.PlaylistService;
 import com.palantis.soundnata.service.SearchService;
 import com.palantis.soundnata.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,15 @@ public class HomeController {
     @Autowired
     private SongService songService;
 
+    @Autowired
+    private PlaylistService playlistService;
+
     @GetMapping("/")
-    public String home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String home(Model model) {
         model.addAttribute("songs", songService.getAllSongs());
-        return "home"; // Return the home view
+        List<Playlist> playlists = playlistService.getPlaylistsForLoggedInUser();
+        model.addAttribute("playlists", playlists);
+        return "home";
     }
 
     @Autowired
@@ -32,6 +39,8 @@ public class HomeController {
         Map<String, List<?>> results = searchService.search(query);
         model.addAttribute("results", results);
         model.addAttribute("query", query);
+        List<Playlist> playlists = playlistService.getPlaylistsForLoggedInUser();
+        model.addAttribute("playlists", playlists);
         return "search";
     }
 }

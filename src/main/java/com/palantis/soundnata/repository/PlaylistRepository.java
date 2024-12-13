@@ -11,4 +11,5 @@ import java.util.List;
 public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     List<Playlist> findByNameContainingIgnoreCase(String keyword);
     List<Playlist> findByUser(User user);
+    long countByUser(User user);
 }
