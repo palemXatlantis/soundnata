@@ -3,7 +3,9 @@ package com.palantis.soundnata.controller;
 
 import com.palantis.soundnata.model.Playlist;
 import com.palantis.soundnata.model.Song;
+import com.palantis.soundnata.model.User;
 import com.palantis.soundnata.service.PlaylistService;
+import com.palantis.soundnata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,17 +14,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/playlists")
+@RequestMapping("/playlist")
 public class PlaylistController {
 
     @Autowired
     private PlaylistService playlistService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public String getAllPlaylists(Model model) {
         List<Playlist> playlists = playlistService.getAllPlaylists();
         model.addAttribute("playlists", playlists);
-        return "playlists";
+        return "playlist";
     }
 
     @GetMapping("/{id}")
@@ -32,16 +37,12 @@ public class PlaylistController {
         return "playlist";
     }
 
-    @GetMapping("/create")
-    public String createPlaylist(Model model) {
-        model.addAttribute("playlist", new Playlist());
-        return "create-playlist";
-    }
 
     @PostMapping("/create")
-    public String createPlaylist(@ModelAttribute Playlist playlist) {
-        playlistService.createPlaylist(playlist);
-        return "redirect:/playlists";
+    public String createPlaylist(Model model) {
+        Playlist newPlaylist = playlistService.createPlaylist();
+
+        return "redirect:/playlist/" + newPlaylist.getId();
     }
 
     @GetMapping("/{id}/edit")
@@ -74,13 +75,13 @@ public class PlaylistController {
 
     @PostMapping("/{id}/add-lagu")
     public String addLaguToPlaylist(@PathVariable Long id, @ModelAttribute Song lagu) {
-        playlistService.addLaguToPlaylist(id, lagu);
+        playlistService.addSongToPlaylist(id, lagu);
         return "redirect:/playlists/" + id;
     }
 
     @GetMapping("/{id}/remove-lagu/{laguId}")
     public String removeLaguFromPlaylist(@PathVariable Long id, @PathVariable Long laguId) {
-        playlistService.removeLaguFromPlaylist(id, laguId);
+        playlistService.removeSongFromPlaylist(id, laguId);
         return "redirect:/playlists/" + id;
     }
 }

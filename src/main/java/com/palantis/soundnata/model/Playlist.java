@@ -1,11 +1,14 @@
 package com.palantis.soundnata.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Table(name = "playlists")
+@Getter
+@Setter
 public class Playlist {
 
     @Id
@@ -13,33 +16,14 @@ public class Playlist {
     private Long id;
 
     @Column(unique = true)
-    private String nama;
+    private String name;
+
+    private String description;
+
+    @ManyToOne
+    private User user;
 
     @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Song> lagus;
+    private List<Song> songs;
 
-    // Getter dan Setter
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
-    public List<Song> getLagus() {
-        return lagus;
-    }
-
-    public void setLagus(List<Song> lagus) {
-        this.lagus = lagus;
-    }
 }

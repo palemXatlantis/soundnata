@@ -1,0 +1,25 @@
+<aside class="bg-gray-900 w-64 p-6 fixed h-screen">
+    <ul class="space-y-4">
+        <li>
+            <a href="#" class="text-xl hover:text-blue-500">Liked Songs</a>
+        </li>
+        <li>
+            <a href="#" class="text-xl hover:text-blue-500">Playlists</a>
+        </li>
+    </ul>
+
+    <div class="mt-8">
+        <div class="flex justify-between items-center">
+            <h2 class="text-lg font-bold mb-4">Playlists</h2>
+            <form th:action="@{/playlist/create}" method="post">
+                <button
+                        class="text-white py-2 px-4 text-2xl"
+                        type="submit"
+                >
+                    +
+                </button>
+            </form>
+
+        </div>
+    </div>
+</aside>

@@ -4,7 +4,6 @@ import com.palantis.soundnata.model.Playlist;
 import com.palantis.soundnata.model.Song;
 import com.palantis.soundnata.repository.PlaylistRepository;
 import com.palantis.soundnata.repository.SongRepository;
-import com.palantis.soundnata.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,7 @@ public class SearchService {
         results.put("songs", songs);
 
         // Pencarian playlist (opsional, bisa menampilkan playlist jika keyword terkait).
-        List<Playlist> playlists = playlistRepository.findByNamaContainingIgnoreCase(keyword);
+        List<Playlist> playlists = playlistRepository.findByNameContainingIgnoreCase(keyword);
         results.put("playlists", playlists);
 
         return results;

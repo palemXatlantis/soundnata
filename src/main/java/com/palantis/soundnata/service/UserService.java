@@ -4,6 +4,7 @@ import com.palantis.soundnata.model.User;
 import com.palantis.soundnata.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,4 +41,14 @@ public class UserService implements UserDetailsService {
         return (UserDetails) userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
+
+    public User getLoggedInUser() {
+        // Get the username of the currently authenticated user
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Fetch the full user object from the database using the username from userDetails
+        return userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
 }
