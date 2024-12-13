@@ -32,7 +32,7 @@ public class PlaylistService {
 
     public Playlist createPlaylist() {
         User loggedInUser = userService.getLoggedInUser();
-        String playlistName = "My Playlist#" + (playlistRepository.count() + 1);
+        String playlistName = "My Playlist #" + (playlistRepository.countByUser(loggedInUser) + 1);
 
         Playlist playlist = new Playlist();
         playlist.setName(playlistName);
@@ -75,5 +75,10 @@ public class PlaylistService {
             return playlist.getSongs().size();
         }
         return 0;
+    }
+
+    public List<Playlist> getPlaylistsForLoggedInUser() {
+        User user = userService.getLoggedInUser();
+        return playlistRepository.findByUser(user);
     }
 }

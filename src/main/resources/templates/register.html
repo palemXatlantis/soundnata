@@ -10,8 +10,8 @@
 <body>
 <div th:replace="fragments/nav_auth::nav"></div>
 
-<div class="flex items-center justify-self-end min-h-screen  bg-gray-800">
-    <div class="bg-black shadow-md rounded-lg p-8 w-full max-w-md">
+<div class="flex items-center justify-center min-h-screen bg-gray-800">
+    <div class="bg-black shadow-md rounded-lg p-8 w-full max-w-md mx-auto">
         <h1 class="text-3xl font-bold mb-6 text-center text-white">Register Account</h1>
         <form th:action="@{/register}" th:object="${user}" class="flex flex-col space-y-4" method="POST">
             <div th:if="${error}" class="error-message" th:text="${error}"></div>

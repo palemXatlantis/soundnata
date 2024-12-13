@@ -34,6 +34,8 @@ public class PlaylistController {
     public String getPlaylistById(@PathVariable Long id, Model model) {
         Playlist playlist = playlistService.getPlaylistById(id);
         model.addAttribute("playlist", playlist);
+        List<Playlist> playlists = playlistService.getPlaylistsForLoggedInUser();
+        model.addAttribute("playlists", playlists);
         return "playlist";
     }
 
