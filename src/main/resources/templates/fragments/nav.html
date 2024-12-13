@@ -25,7 +25,7 @@
         <a th:text="${#authentication.name}" th:href="@{/profile}"></a>
     </span>
             <form th:action="@{/logout}" method="post" style="display: inline;">
-                <button type="submit" class="hover:text-gray-400">Logout</button>
+                <button id="logoutButton" type="submit" class="hover:text-gray-400">Logout</button>
             </form>
 
 

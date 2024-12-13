@@ -122,65 +122,7 @@
     <audio id="audioPlayer" class="hidden"></audio>
 </footer>
 
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const audioPlayer = document.getElementById('audioPlayer');
-        const playPauseButton = document.getElementById('playPauseButton');
-        const playerProgress = document.getElementById('playerProgress');
-        const volumeControl = document.getElementById('volumeControl');
-
-        let isPlaying = false;
-
-        // Play/Pause Logic
-        playPauseButton.addEventListener('click', () => {
-            if (isPlaying) {
-                audioPlayer.pause();
-                playPauseButton.textContent = 'Play';
-            } else {
-                audioPlayer.play();
-                playPauseButton.textContent = 'Pause';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        // Progress Bar Logic
-        audioPlayer.addEventListener('timeupdate', () => {
-            if (audioPlayer.duration) {
-                playerProgress.value = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-            }
-        });
-
-        playerProgress.addEventListener('input', () => {
-            audioPlayer.currentTime = (playerProgress.value / 100) * audioPlayer.duration;
-        });
-
-        // Volume Control Logic
-        volumeControl.addEventListener('input', () => {
-            audioPlayer.volume = volumeControl.value / 100;
-        });
-
-        // Example: Load a song when a button is clicked
-        document.querySelectorAll('.play-song').forEach(button => {
-            button.addEventListener('click', () => {
-                const songUrl = button.getAttribute('data-url'); // Get song file URL
-                const songTitle = button.getAttribute('data-title'); // Get song title
-                const songArtist = button.getAttribute('data-artist'); // Get artist name
-                const songImage = button.getAttribute('data-image'); // Optional: Get album art image
-
-                audioPlayer.src = songUrl;
-                audioPlayer.play();
-                isPlaying = true;
-                playPauseButton.textContent = 'Pause';
-
-                document.getElementById('playerTitle').textContent = songTitle; // Update title
-                document.getElementById('playerArtist').textContent = songArtist; // Update artist
-                document.getElementById('playerImage').src = songImage || 'https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1'; // Update image
-
-            });
-        });
-    });
-
-</script>
+<script th:src="@{/js/audioPlayer.js}"></script>
+<script th:src="@{/js/removeLocalStorage.js}"></script>
 </body>
 </html>
