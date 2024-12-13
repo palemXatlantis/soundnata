@@ -52,55 +52,7 @@
         </section>
     </main>
 </div>
-<footer class="bg-gray-800 p-4 fixed bottom-0 w-full">
-    <div class="container mx-auto flex items-center justify-between">
-        <!-- Song Info -->
-        <div class="flex items-center space-x-3">
-            <img
-                    id="playerImage"
-                    src=""
-                    alt="Song Image"
-                    class="w-16 h-16 rounded-lg"
-            />
-            <div>
-                <p id="playerTitle" class="font-bold text-white">No Song Playing</p>
-                <p id="playerArtist" class="text-sm text-gray-400">Unknown Artist</p>
-            </div>
-        </div>
-
-        <!-- Playback Controls -->
-        <div class="flex flex-col items-center space-y-2 w-1/2">
-            <div class="flex items-center space-x-4">
-                <button id="prevButton" class="text-white hover:text-blue-500">Previous</button>
-                <button id="playPauseButton" class="text-white hover:text-blue-500">Play</button>
-                <button id="nextButton" class="text-white hover:text-blue-500">Next</button>
-                <button id="lyricButton" class="text-white hover:text-blue-500">Lyrics</button>
-            </div>
-            <input
-                    id="playerProgress"
-                    type="range"
-                    class="w-full"
-                    min="0"
-                    max="100"
-                    value="0"
-            />
-        </div>
-
-        <!-- Volume Control -->
-        <div class="flex items-center space-x-2">
-            <p class="text-white text-sm">Volume</p>
-            <input
-                    id="volumeControl"
-                    type="range"
-                    class="w-20 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
-                    min="0"
-                    max="100"
-                    value="100"
-            />
-        </div>
-    </div>
-    <audio id="audioPlayer" class="hidden"></audio>
-</footer>
+<div th:replace="fragments/playback::footer"></div>
 
 <script th:src="@{/js/audioPlayer.js}"></script>
 <script th:src="@{/js/removeLocalStorage.js}"></script>
