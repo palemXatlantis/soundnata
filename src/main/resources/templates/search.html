@@ -1,52 +1,193 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Search Results</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoundNata</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
-<body class="bg-gray-100 min-h-screen">
-<div class="container mx-auto py-8">
-    <h1 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h1>
+<body class="bg-black text-white">
+<!-- Include Navigation -->
+<div th:replace="fragments/nav::nav"></div>
+<div class="flex pt-20">
+    <aside class="bg-gray-900 w-64 p-6 fixed h-screen">
+        <ul class="space-y-4">
+            <li>
+                <a href="#" class="text-xl hover:text-blue-500">Liked Songs</a>
+            </li>
+            <li>
+                <a href="#" class="text-xl hover:text-blue-500">Playlists</a>
+            </li>
+        </ul>
 
-    <!-- Songs Section -->
-    <h2 class="text-xl font-semibold mt-4">Songs</h2>
-    <ul class="list-disc list-inside">
-        <li th:each="song : ${results['songs']}" th:text="${song.title}"></li>
-    </ul>
+        <div class="mt-8">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-bold mb-4">Playlists</h2>
+                <button
+                        class="text-white py-2 px-4 text-2xl"
+                >
+                    +
+                </button>
+            </div>
+        </div>
+    </aside>
 
-    <!-- Artists Section -->
-    <h2 class="text-xl font-semibold mt-4">Artists</h2>
-    <ul class="list-disc list-inside">
-        <li th:each="song : ${results['songs']}" th:text="${song.artist}"></li>
-    </ul>
+    <main class="flex-1 ml-72 mb-10 p-8 space-y-8">
+        <section class="bg-gray-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h2>
+            <div class="grid grid-cols-5 gap-6">
+                <!-- Songs Section -->
+                <div th:each="song : ${results['songs']}" class="bg-gray-800 p-4 rounded-lg">
+                    <img
+                            src="https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1"
+                            alt="Album Art"
+                            class="w-64 h-48 rounded-lg"
+                    />
+                    <p th:text="${song.title}" class="text-center text-white font-bold mt-2"></p>
+                    <p th:text="${song.artist}" class="text-center text-gray-400 text-sm"></p>
+                    <button
+                            class="play-song bg-blue-500 text-white rounded-lg px-4 py-2 mt-2"
+                            th:data-id="${song.id}"
+                            th:data-title="${song.title}"
+                            th:data-artist="${song.artist}"
+                            th:data-url="${song.filePath}">
+                        Play
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Playlist Section -->
+        <section class="bg-gray-700 rounded-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold mb-4">Playlists</h2>
+            <div class="grid grid-cols-3 gap-6">
+                <div th:each="playlist : ${results['playlists']}" class="bg-gray-800 p-4 rounded-lg">
+                    <img
+                            src="https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1"
+                            alt="Playlist Cover"
+                            class="w-64 h-48 rounded-lg"
+                    />
+                    <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
+                    <p th:text="'Created by ' + ${playlist.creator}" class="text-center text-gray-400 text-sm"></p>
+                    <button
+                            class="bg-blue-500 text-white rounded-lg px-4 py-2 mt-2">
+                        View Playlist
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
 </div>
+<footer class="bg-gray-800 p-4 fixed bottom-0 w-full">
+    <div class="container mx-auto flex items-center justify-between">
+        <!-- Song Info -->
+        <div class="flex items-center space-x-3">
+            <img
+                    id="playerImage"
+                    src=""
+                    alt="Song Image"
+                    class="w-16 h-16 rounded-lg"
+            />
+            <div>
+                <p id="playerTitle" class="font-bold text-white">No Song Playing</p>
+                <p id="playerArtist" class="text-sm text-gray-400">Unknown Artist</p>
+            </div>
+        </div>
+
+        <!-- Playback Controls -->
+        <div class="flex flex-col items-center space-y-2 w-1/2">
+            <div class="flex items-center space-x-4">
+                <button id="prevButton" class="text-white hover:text-blue-500">Previous</button>
+                <button id="playPauseButton" class="text-white hover:text-blue-500">Play</button>
+                <button id="nextButton" class="text-white hover:text-blue-500">Next</button>
+                <button id="lyricButton" class="text-white hover:text-blue-500">Lyrics</button>
+            </div>
+            <input
+                    id="playerProgress"
+                    type="range"
+                    class="w-full"
+                    min="0"
+                    max="100"
+                    value="0"
+            />
+        </div>
+
+        <!-- Volume Control -->
+        <div class="flex items-center space-x-2">
+            <p class="text-white text-sm">Volume</p>
+            <input
+                    id="volumeControl"
+                    type="range"
+                    class="w-20 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                    min="0"
+                    max="100"
+                    value="100"
+            />
+        </div>
+    </div>
+    <audio id="audioPlayer" class="hidden"></audio>
+</footer>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const playerProgress = document.getElementById('playerProgress');
+        const volumeControl = document.getElementById('volumeControl');
+
+        let isPlaying = false;
+
+        // Play/Pause Logic
+        playPauseButton.addEventListener('click', () => {
+            if (isPlaying) {
+                audioPlayer.pause();
+                playPauseButton.textContent = 'Play';
+            } else {
+                audioPlayer.play();
+                playPauseButton.textContent = 'Pause';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Progress Bar Logic
+        audioPlayer.addEventListener('timeupdate', () => {
+            if (audioPlayer.duration) {
+                playerProgress.value = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            }
+        });
+
+        playerProgress.addEventListener('input', () => {
+            audioPlayer.currentTime = (playerProgress.value / 100) * audioPlayer.duration;
+        });
+
+        // Volume Control Logic
+        volumeControl.addEventListener('input', () => {
+            audioPlayer.volume = volumeControl.value / 100;
+        });
+
+        // Example: Load a song when a button is clicked
+        document.querySelectorAll('.play-song').forEach(button => {
+            button.addEventListener('click', () => {
+                const songUrl = button.getAttribute('data-url'); // Get song file URL
+                const songTitle = button.getAttribute('data-title'); // Get song title
+                const songArtist = button.getAttribute('data-artist'); // Get artist name
+                const songImage = button.getAttribute('data-image'); // Optional: Get album art image
+
+                audioPlayer.src = songUrl;
+                audioPlayer.play();
+                isPlaying = true;
+                playPauseButton.textContent = 'Pause';
+
+                document.getElementById('playerTitle').textContent = songTitle; // Update title
+                document.getElementById('playerArtist').textContent = songArtist; // Update artist
+                document.getElementById('playerImage').src = songImage || 'https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1'; // Update image
+
+            });
+        });
+    });
+
+</script>
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Search Results</title>-->
-<!--    <script src="https://cdn.tailwindcss.com"></script>-->
-<!--</head>-->
-<!--<body class="bg-gray-100 min-h-screen">-->
-<!--<div class="container mx-auto py-8">-->
-<!--    <h1 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h1>-->
-
-<!--    &lt;!&ndash; Songs Section &ndash;&gt;-->
-<!--    <h2 class="text-xl font-semibold mt-4">Songs and Artists</h2>-->
-<!--    <ul class="list-disc list-inside">-->
-<!--        <li th:each="song : ${results['songs']}">-->
-<!--            <span th:text="'Title: ' + ${song.title}"></span> - -->
-<!--            <span th:text="'Artist: ' + ${song.artist}"></span>-->
-<!--        </li>-->
-<!--    </ul>-->
-
-<!--    &lt;!&ndash; Playlists Section &ndash;&gt;-->
-<!--    <h2 class="text-xl font-semibold mt-4">Playlists</h2>-->
-<!--    <ul class="list-disc list-inside">-->
-<!--        <li th:each="playlist : ${results['playlists']}" th:text="${playlist.name}"></li>-->
-<!--    </ul>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->
