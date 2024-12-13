@@ -20,6 +20,9 @@ public class Song {
     @NotBlank(message = "File path is required")
     private String filePath;
 
+    @NotBlank(message = "File path is required")
+    private String imagePath;
+
     private Integer duration;
 
     @ManyToOne

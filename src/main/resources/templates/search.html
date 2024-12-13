@@ -39,7 +39,7 @@
                 <!-- Songs Section -->
                 <div th:each="song : ${results['songs']}" class="bg-gray-800 p-4 rounded-lg">
                     <img
-                            src="https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1"
+                            th:src="${song.imagePath}"
                             alt="Album Art"
                             class="w-64 h-48 rounded-lg"
                     />
