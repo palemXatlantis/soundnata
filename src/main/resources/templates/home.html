@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SoundNata</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
-    <link th:href="@{/images/favicon.ico}" rel="iconsoundnata.png" type="image/x-icon" />
+    <link th:href="@{/images/iconsoundnata.png}" rel="icon" type="image/png" />
 </head>
 <body class="bg-black text-white">
 <div th:replace="fragments/nav::nav"></div>
@@ -32,7 +32,6 @@
                                 th:data-image="${song.imagePath}">
                             Play
                         </button>
-                        <!-- Lyrics Button -->
                         <button
                                 class="show-lyrics bg-green-500 text-white rounded-lg px-4 py-2"
                                 th:data-title="${song.title}"
