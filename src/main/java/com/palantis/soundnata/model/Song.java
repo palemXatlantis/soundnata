@@ -29,6 +29,10 @@ public class Song {
 
     private Integer duration;
 
+    @Lob // Large Object for handling long text data
+    @Column(columnDefinition = "TEXT")
+    private String lyrics;
+
     @ManyToOne
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
