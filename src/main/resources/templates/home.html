@@ -5,17 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SoundNata</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
+    <link th:href="@{/images/iconsoundnata.png}" rel="icon" type="image/png" />
 </head>
 <body class="bg-black text-white">
-
-<div class="flex items-center space-x-2">
-    <div class="w-12 h-12 flex items-center justify-center bg-blue-500 text-white font-bold rounded-full">
-        <span></span>
-
 <div th:replace="fragments/nav::nav"></div>
 <div class="flex pt-20">
     <div th:replace="fragments/aside::aside"></div>
-
     <main class="flex-1 ml-72 mb-10 p-8 space-y-8">
         <section class="bg-gray-700 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Music</h2>
@@ -37,10 +32,10 @@
                                 th:data-image="${song.imagePath}">
                             Play
                         </button>
-                        <!-- Lyrics Button -->
                         <button
                                 class="show-lyrics bg-green-500 text-white rounded-lg px-4 py-2"
                                 th:data-title="${song.title}">
+                                th:data-lyrics="${song.lyrics}">
                             Lyrics
                         </button>
                     </div>
@@ -87,11 +82,12 @@
             const lyricsSection = document.getElementById('lyricsSection');
             const lyricsContent = document.getElementById('lyricsContent');
             const songTitle = button.getAttribute('data-title');
+            const songLyrics = button.getAttribute('data-lyrics');
 
             // Ubah konten lirik jika perlu (contoh: dinamis berdasarkan lagu)
-            lyricsContent.textContent = `Lyrics for "${songTitle}": Lorem ipsum dolor sit amet, consectetur adipiscing elit.`;
+            lyricsContent.textContent = `Lyrics for "${songTitle}": "${song.lyrics}";
 
-            // Toggle tampilkan atau sembunyikan box lirik
+            //Toggle tampilkan atau sembunyikan box lirik
             lyricsSection.classList.toggle('hidden');
         });
     });
