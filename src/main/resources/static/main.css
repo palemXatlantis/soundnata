@@ -678,7 +678,7 @@ video {
 }
 
 .h-screen {
-  height: 100vh;
+  height: 100%;
 }
 
 .min-h-screen {
@@ -1001,3 +1001,40 @@ video {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity, 1));
 }
+
+/* Style container (misalnya: aside) */
+.scrollable-container {
+  height: 69%; /* Tinggi penuh layar */
+  overflow-y: auto; /* Aktifkan scroll jika diperlukan */
+  scrollbar-width: thin; /* Untuk browser Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Firefox */
+}
+
+/* Scrollbar default (tidak terlihat) */
+.scrollable-container::-webkit-scrollbar {
+  width: 0;
+  transition: width 0.3s; /* Efek transisi muncul */
+}
+
+/* Scrollbar saat di-hover */
+.scrollable-container:hover::-webkit-scrollbar {
+  width: 8px; /* Lebar scrollbar ketika dihover */
+}
+
+/* Track (jalur scrollbar) */
+.scrollable-container::-webkit-scrollbar-track {
+  background: transparent; /* Track tetap transparan */
+}
+
+/* Handle (pegangan scrollbar) */
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 25, 0.5); /* Warna default */
+  border-radius: 4px; /* Rounded scrollbar */
+}
+
+/* Handle saat dihover */
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.8); /* Warna lebih jelas saat hover */
+}
+
+
