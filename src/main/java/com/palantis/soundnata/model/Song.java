@@ -6,6 +6,10 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(
+        name = "song",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"title", "artist"})
+)
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +23,9 @@ public class Song {
 
     @NotBlank(message = "File path is required")
     private String filePath;
+
+    @NotBlank(message = "File path is required")
+    private String imagePath;
 
     private Integer duration;
 

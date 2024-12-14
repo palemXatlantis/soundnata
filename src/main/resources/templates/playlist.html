@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoundNata</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+</head>
+<body class="bg-black text-white">
+<!-- Include Navigation -->
+<div th:replace="fragments/nav::nav"></div>
+<div class="flex pt-20">
+    <div th:replace="fragments/aside::aside"></div>
+
+    <main class="flex-1 ml-72 mb-10 p-8 space-y-8">
+        <section class="bg-gray-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">Music</h2>
+            <div class="grid grid-cols-5 gap-4">
+                <div th:each="song : ${songs}" class="bg-gray-800 p-4 rounded-lg">
+                    <img
+                            th:src="${song.imagePath}"
+                            alt="Album Art"
+                            class="w-64 h-48 rounded-lg"
+                    />
+                    <p th:text="${song.title}" class="text-center"></p>
+                    <button
+                            class="play-song bg-blue-500 text-white rounded-lg px-4 py-2 mt-2"
+                            th:data-id="${song.id}"
+                            th:data-title="${song.title}"
+                            th:data-artist="${song.artist}"
+                            th:data-url="${song.filePath}"
+                            th:data-image="${song.imagePath}">
+                        Play
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <section>
+            <h2 class="text-2xl font-bold mb-4">Recommended Playlists</h2>
+            <div class="grid grid-cols-3 gap-6">
+                <div th:each="playlist : ${playlists}" class="bg-gray-700 p-4 rounded-lg transition-transform transform hover:scale-105">
+                    <img
+                            th:src="${playlist}"
+                            alt="Playlist Image"
+                            class="w-full h-48 rounded-lg mb-2 object-cover"
+                    />
+                    <h3 class="font-bold text-lg" th:text="${playlist.name}"></h3>
+                    <p class="text-sm text-gray-400" th:text="${playlist.description}"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<div th:replace="fragments/playback::footer"></div>
+
+<script th:src="@{/js/audioPlayer.js}"></script>
+<script th:src="@{/js/removeLocalStorage.js}"></script>
+</body>
+</html>

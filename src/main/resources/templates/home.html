@@ -10,175 +10,87 @@
 <!-- Include Navigation -->
 <div th:replace="fragments/nav::nav"></div>
 <div class="flex pt-20">
-    <aside class="bg-gray-900 w-64 p-6 fixed h-screen">
-        <ul class="space-y-4">
-            <li>
-                <a href="#" class="text-xl hover:text-blue-500">Liked Songs</a>
-            </li>
-            <li>
-                <a href="#" class="text-xl hover:text-blue-500">Playlists</a>
-            </li>
-        </ul>
+    <div th:replace="fragments/aside::aside"></div>
 
-        <div class="mt-8">
-            <div class="flex justify-between items-center">
-                <h2 class="text-lg font-bold mb-4">Playlists</h2>
-                <button
-                        class="text-white py-2 px-4 text-2xl"
-                >
-                    +
-                </button>
-            </div>
-        </div>
-    </aside>
-
-    <main class="flex-1 ml-72 p-8 space-y-8">
+    <main class="flex-1 ml-72 mb-10 p-8 space-y-8">
         <section class="bg-gray-700 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Music</h2>
             <div class="grid grid-cols-5 gap-4">
                 <div th:each="song : ${songs}" class="bg-gray-800 p-4 rounded-lg">
                     <img
-                            src="https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1"
+                            th:src="${song.imagePath}"
                             alt="Album Art"
                             class="w-64 h-48 rounded-lg"
                     />
                     <p th:text="${song.title}" class="text-center"></p>
-                    <button
-                            class="play-song bg-blue-500 text-white rounded-lg px-4 py-2 mt-2"
-                            th:data-id="${song.id}"
-                            th:data-title="${song.title}"
-                            th:data-artist="${song.artist}"
-                            th:data-url="${song.filePath}">
-                        Play
-                    </button>
+                    <div class="flex justify-center mt-2 space-x-2">
+                        <button
+                                class="play-song bg-blue-500 text-white rounded-lg px-4 py-2"
+                                th:data-id="${song.id}"
+                                th:data-title="${song.title}"
+                                th:data-artist="${song.artist}"
+                                th:data-url="${song.filePath}"
+                                th:data-image="${song.imagePath}">
+                            Play
+                        </button>
+                        <!-- Lyrics Button -->
+                        <button
+                                class="show-lyrics bg-green-500 text-white rounded-lg px-4 py-2"
+                                th:data-title="${song.title}">
+                            Lyrics
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Lyrics Box -->
+        <section id="lyricsSection" class="hidden bg-gray-800 rounded-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold mb-4">Lyrics</h2>
+            <p id="lyricsContent" class="text-gray-300 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+        </section>
 
-        <section>
-            <h2 class="text-2xl font-bold mb-4">Recommended Playlists</h2>
+        <!-- Playlist Section -->
+        <section class="bg-gray-700 rounded-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold mb-4">Playlists</h2>
             <div class="grid grid-cols-3 gap-6">
-                <div class="bg-gray-700 p-4 rounded-lg">
+                <div th:each="playlist : ${playlists}" class="bg-gray-800 p-4 rounded-lg">
                     <img
-                            alt="Example Image"
+                            src="/images/question_mark.jpg"
+                            alt="Playlist Cover"
                             class="w-64 h-48 rounded-lg"
                     />
-                    <h3 class="font-bold" ></h3>
-                    <p class="text-sm" ></p>
+                    <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
+                    <button class="bg-blue-500 text-white rounded-lg px-4 py-2 mt-2">
+                        View Playlist
+                    </button>
                 </div>
             </div>
         </section>
     </main>
 </div>
-<footer class="bg-gray-800 p-4 fixed bottom-0 w-full">
-    <div class="container mx-auto flex items-center justify-between">
-        <!-- Song Info -->
-        <div class="flex items-center space-x-3">
-            <img
-                    id="playerImage"
-                    src=""
-                    alt="Song Image"
-                    class="w-16 h-16 rounded-lg"
-            />
-            <div>
-                <p id="playerTitle" class="font-bold text-white">No Song Playing</p>
-                <p id="playerArtist" class="text-sm text-gray-400">Unknown Artist</p>
-            </div>
-        </div>
+<div th:replace="fragments/playback::footer"></div>
 
-        <!-- Playback Controls -->
-        <div class="flex flex-col items-center space-y-2 w-1/2">
-            <div class="flex items-center space-x-4">
-                <button id="prevButton" class="text-white hover:text-blue-500">Previous</button>
-                <button id="playPauseButton" class="text-white hover:text-blue-500">Play</button>
-                <button id="nextButton" class="text-white hover:text-blue-500">Next</button>
-            </div>
-            <input
-                    id="playerProgress"
-                    type="range"
-                    class="w-full"
-                    min="0"
-                    max="100"
-                    value="0"
-            />
-        </div>
-
-        <!-- Volume Control -->
-        <div class="flex items-center space-x-2">
-            <p class="text-white text-sm">Volume</p>
-            <input
-                    id="volumeControl"
-                    type="range"
-                    class="w-20"
-                    min="0"
-                    max="100"
-                    value="100"
-            />
-        </div>
-    </div>
-    <audio id="audioPlayer" class="hidden"></audio>
-</footer>
-
-
+<!-- JavaScript -->
+<script th:src="@{/js/audioPlayer.js}"></script>
+<script th:src="@{/js/removeLocalStorage.js}"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const audioPlayer = document.getElementById('audioPlayer');
-        const playPauseButton = document.getElementById('playPauseButton');
-        const playerProgress = document.getElementById('playerProgress');
-        const volumeControl = document.getElementById('volumeControl');
+    // Menampilkan/Menyembunyikan Lyrics
+    document.querySelectorAll('.show-lyrics').forEach(button => {
+        button.addEventListener('click', () => {
+            const lyricsSection = document.getElementById('lyricsSection');
+            const lyricsContent = document.getElementById('lyricsContent');
+            const songTitle = button.getAttribute('data-title');
 
-        let isPlaying = false;
+            // Ubah konten lirik jika perlu (contoh: dinamis berdasarkan lagu)
+            lyricsContent.textContent = `Lyrics for "${songTitle}": Lorem ipsum dolor sit amet, consectetur adipiscing elit.`;
 
-        // Play/Pause Logic
-        playPauseButton.addEventListener('click', () => {
-            if (isPlaying) {
-                audioPlayer.pause();
-                playPauseButton.textContent = 'Play';
-            } else {
-                audioPlayer.play();
-                playPauseButton.textContent = 'Pause';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        // Progress Bar Logic
-        audioPlayer.addEventListener('timeupdate', () => {
-            if (audioPlayer.duration) {
-                playerProgress.value = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-            }
-        });
-
-        playerProgress.addEventListener('input', () => {
-            audioPlayer.currentTime = (playerProgress.value / 100) * audioPlayer.duration;
-        });
-
-        // Volume Control Logic
-        volumeControl.addEventListener('input', () => {
-            audioPlayer.volume = volumeControl.value / 100;
-        });
-
-        // Example: Load a song when a button is clicked
-        document.querySelectorAll('.play-song').forEach(button => {
-            button.addEventListener('click', () => {
-                const songUrl = button.getAttribute('data-url'); // Get song file URL
-                const songTitle = button.getAttribute('data-title'); // Get song title
-                const songArtist = button.getAttribute('data-artist'); // Get artist name
-                const songImage = button.getAttribute('data-image'); // Optional: Get album art image
-
-                audioPlayer.src = songUrl;
-                audioPlayer.play();
-                isPlaying = true;
-                playPauseButton.textContent = 'Pause';
-
-                document.getElementById('playerTitle').textContent = songTitle; // Update title
-                document.getElementById('playerArtist').textContent = songArtist; // Update artist
-                document.getElementById('playerImage').src = songImage || 'https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1'; // Update image
-
-            });
+            // Toggle tampilkan atau sembunyikan box lirik
+            lyricsSection.classList.toggle('hidden');
         });
     });
-
 </script>
 </body>
 </html>
