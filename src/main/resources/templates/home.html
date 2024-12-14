@@ -35,7 +35,7 @@
                         <!-- Lyrics Button -->
                         <button
                                 class="show-lyrics bg-green-500 text-white rounded-lg px-4 py-2"
-                                th:data-title="${song.title}">
+                                th:data-title="${song.title}"
                                 th:data-lyrics="${song.lyrics}">
                             Lyrics
                         </button>
@@ -86,7 +86,7 @@
             const songLyrics = button.getAttribute('data-lyrics');
 
             // Ubah konten lirik jika perlu (contoh: dinamis berdasarkan lagu)
-            lyricsContent.textContent = `Lyrics for "${songTitle}": "${song.lyrics}";
+            lyricsContent.textContent = songLyrics ;
 
             //Toggle tampilkan atau sembunyikan box lirik
             lyricsSection.classList.toggle('hidden');
