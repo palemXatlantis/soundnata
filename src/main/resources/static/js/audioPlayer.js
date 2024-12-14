@@ -15,9 +15,25 @@
     document.getElementById('playerArtist').textContent = savedState.songArtist || 'Unknown Artist';
     document.getElementById('playerImage').src = savedState.songImage || 'https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1';
 }
+     let isLiked = false; // Status lagu awal
 
-    // Play/Pause Logic
-    playPauseButton.addEventListener('click', () => {
+     const likeButton = document.getElementById("likeButton");
+
+     likeButton.addEventListener("click", function () {
+         if (!isLiked) {
+             likeButton.innerText = "💙"; // Ganti ke hati penuh
+             likeButton.classList.remove("text-gray-500"); // Hapus warna abu-abu
+             likeButton.classList.add("text-red-500"); // Tambahkan warna merah
+         } else {
+             likeButton.innerText = "♡"; // Kembali ke hati kosong
+             likeButton.classList.remove("text-red-500"); // Hapus warna merah
+             likeButton.classList.add("text-gray-500"); // Tambahkan warna abu-abu
+         }
+         isLiked = !isLiked; // Toggle status suka
+     });
+
+     // Play/Pause Logic
+     playPauseButton.addEventListener('click', () => {
     if (isPlaying) {
     audioPlayer.pause();
     playPauseButton.textContent = 'Play';
