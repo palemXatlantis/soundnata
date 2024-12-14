@@ -6,6 +6,10 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(
+        name = "song",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"title", "artist"})
+)
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
