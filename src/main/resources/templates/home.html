@@ -36,6 +36,7 @@
                         <button
                                 class="show-lyrics bg-green-500 text-white rounded-lg px-4 py-2"
                                 th:data-title="${song.title}">
+                                th:data-lyrics="${song.lyrics}">
                             Lyrics
                         </button>
                     </div>
@@ -82,11 +83,12 @@
             const lyricsSection = document.getElementById('lyricsSection');
             const lyricsContent = document.getElementById('lyricsContent');
             const songTitle = button.getAttribute('data-title');
+            const songLyrics = button.getAttribute('data-lyrics');
 
             // Ubah konten lirik jika perlu (contoh: dinamis berdasarkan lagu)
-            lyricsContent.textContent = `Lyrics for "${songTitle}": Lorem ipsum dolor sit amet, consectetur adipiscing elit.`;
+            lyricsContent.textContent = `Lyrics for "${songTitle}": "${song.lyrics}";
 
-            // Toggle tampilkan atau sembunyikan box lirik
+            //Toggle tampilkan atau sembunyikan box lirik
             lyricsSection.classList.toggle('hidden');
         });
     });
