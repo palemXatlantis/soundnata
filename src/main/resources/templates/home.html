@@ -36,17 +36,22 @@
             </div>
         </section>
 
-
-        <section>
-            <h2 class="text-2xl font-bold mb-4">Recommended Playlists</h2>
+        <!-- Playlist Section -->
+        <section class="bg-gray-700 rounded-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold mb-4">Playlists</h2>
             <div class="grid grid-cols-3 gap-6">
-                <div class="bg-gray-700 p-4 rounded-lg">
+                <div th:each="playlist : ${results['playlists']}" class="bg-gray-800 p-4 rounded-lg">
                     <img
-                            alt="Example Image"
+                            src="/images/question_mark.jpg"
+                            alt="Playlist Cover"
                             class="w-64 h-48 rounded-lg"
                     />
-                    <h3 class="font-bold" ></h3>
-                    <p class="text-sm" ></p>
+                    <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
+                    <p class="text-center text-gray-400 text-sm"></p>
+                    <button
+                            class="bg-blue-500 text-white rounded-lg px-4 py-2 mt-2">
+                        View Playlist
+                    </button>
                 </div>
             </div>
         </section>
