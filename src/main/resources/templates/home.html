@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SoundNata</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-white">
 <!-- Include Navigation -->
@@ -23,17 +24,33 @@
                             class="w-64 h-48 rounded-lg"
                     />
                     <p th:text="${song.title}" class="text-center"></p>
-                    <button
-                            class="play-song bg-blue-500 text-white rounded-lg px-4 py-2 mt-2"
-                            th:data-id="${song.id}"
-                            th:data-title="${song.title}"
-                            th:data-artist="${song.artist}"
-                            th:data-url="${song.filePath}"
-                            th:data-image="${song.imagePath}">
-                        Play
-                    </button>
+                    <div class="flex justify-center mt-2 space-x-2">
+                        <button
+                                class="play-song bg-blue-500 text-white rounded-lg px-4 py-2"
+                                th:data-id="${song.id}"
+                                th:data-title="${song.title}"
+                                th:data-artist="${song.artist}"
+                                th:data-url="${song.filePath}"
+                                th:data-image="${song.imagePath}">
+                            Play
+                        </button>
+                        <!-- Lyrics Button -->
+                        <button
+                                class="show-lyrics bg-green-500 text-white rounded-lg px-4 py-2"
+                                th:data-title="${song.title}">
+                            Lyrics
+                        </button>
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Lyrics Box -->
+        <section id="lyricsSection" class="hidden bg-gray-800 rounded-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold mb-4">Lyrics</h2>
+            <p id="lyricsContent" class="text-gray-300 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
         </section>
 
         <!-- Playlist Section -->
@@ -47,9 +64,7 @@
                             class="w-64 h-48 rounded-lg"
                     />
                     <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
-                    <p class="text-center text-gray-400 text-sm"></p>
-                    <button
-                            class="bg-blue-500 text-white rounded-lg px-4 py-2 mt-2">
+                    <button class="bg-blue-500 text-white rounded-lg px-4 py-2 mt-2">
                         View Playlist
                     </button>
                 </div>
@@ -59,7 +74,24 @@
 </div>
 <div th:replace="fragments/playback::footer"></div>
 
+<!-- JavaScript -->
 <script th:src="@{/js/audioPlayer.js}"></script>
 <script th:src="@{/js/removeLocalStorage.js}"></script>
+<script>
+    // Menampilkan/Menyembunyikan Lyrics
+    document.querySelectorAll('.show-lyrics').forEach(button => {
+        button.addEventListener('click', () => {
+            const lyricsSection = document.getElementById('lyricsSection');
+            const lyricsContent = document.getElementById('lyricsContent');
+            const songTitle = button.getAttribute('data-title');
+
+            // Ubah konten lirik jika perlu (contoh: dinamis berdasarkan lagu)
+            lyricsContent.textContent = `Lyrics for "${songTitle}": Lorem ipsum dolor sit amet, consectetur adipiscing elit.`;
+
+            // Toggle tampilkan atau sembunyikan box lirik
+            lyricsSection.classList.toggle('hidden');
+        });
+    });
+</script>
 </body>
 </html>
