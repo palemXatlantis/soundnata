@@ -40,13 +40,14 @@
         <section>
             <h2 class="text-2xl font-bold mb-4">Recommended Playlists</h2>
             <div class="grid grid-cols-3 gap-6">
-                <div class="bg-gray-700 p-4 rounded-lg">
+                <div th:each="playlist : ${playlists}" class="bg-gray-700 p-4 rounded-lg transition-transform transform hover:scale-105">
                     <img
-                            alt="Example Image"
-                            class="w-64 h-48 rounded-lg"
+                            th:src="${playlist}"
+                            alt="Playlist Image"
+                            class="w-full h-48 rounded-lg mb-2 object-cover"
                     />
-                    <h3 class="font-bold" ></h3>
-                    <p class="text-sm" ></p>
+                    <h3 class="font-bold text-lg" th:text="${playlist.name}"></h3>
+                    <p class="text-sm text-gray-400" th:text="${playlist.description}"></p>
                 </div>
             </div>
         </section>

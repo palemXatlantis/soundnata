@@ -19,6 +19,8 @@ public class Playlist {
 
     private String description;
 
+    private String imagePath;
+
     @ManyToOne
     private User user;
 
