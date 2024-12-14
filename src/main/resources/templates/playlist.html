@@ -13,10 +13,14 @@
     <div th:replace="fragments/aside::aside"></div>
 
     <main class="flex-1 ml-72 mb-10 p-8 space-y-8">
-        <section style="padding: 32px; padding-bottom: 16px; padding-left: 16px" class="bg-gray-700 rounded-lg">
+        <section style="padding: 32px; padding-bottom: 16px; padding-left: 16px" class="bg-gray-700 rounded-lg p-8 min-h-screen">
             <div class="flex items-center bg-gray-800 p-4 rounded-lg">
-            <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg">
-            <h2 class="text-2xl font-bold mb-4">Chill Music</h2>
+                <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg mr-6" />
+                <div class="flex flex-col ml-6">
+                    <h2 class="text-2xl font-bold mb-1">Playlist</h2>
+                    <h2 class="text-4xl font-bold mb-4">Chill Music</h2>
+                </div>
+            </div>
             <div class="grid grid-cols-5 gap-4">
                 <div th:each="song : ${songs}" class="bg-gray-800 p-4 rounded-lg">
                     <img
@@ -37,6 +41,7 @@
                 </div>
             </div>
         </section>
+
 
 
         <section>
