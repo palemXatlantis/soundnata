@@ -678,7 +678,7 @@ video {
 }
 
 .h-screen {
-  height: 100%;
+  height: 100vh;
 }
 
 .min-h-screen {
@@ -1004,7 +1004,7 @@ video {
 
 /* Style container (misalnya: aside) */
 .scrollable-container {
-  height: 69%; /* Tinggi penuh layar */
+  height: 69vh; /* Tinggi penuh layar */
   overflow-y: auto; /* Aktifkan scroll jika diperlukan */
   scrollbar-width: thin; /* Untuk browser Firefox */
   scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Firefox */
