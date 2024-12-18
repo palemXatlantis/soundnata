@@ -18,8 +18,8 @@
                 <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg mr-6" />
                 <div class="flex flex-col ml-6">
                     <h2 class="text-xl font-bold mb-6">Playlist</h2>
-                    <h2 class="text-4xl font-bold mb-6">Chill Music</h2>
-                    <h2 class="text-xl font-bold mb-1">username</h2>
+                    <h2 class="text-4xl font-bold mb-6" th:text="${playlist.name}">Chill Music</h2>
+                    <h2 class="text-xl font-bold mb-1" th:text="${playlist.user.username}">username</h2>
                 </div>
             </div>
             <div class="grid grid-cols-5 gap-4">
