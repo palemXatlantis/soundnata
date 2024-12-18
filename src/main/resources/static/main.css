@@ -714,8 +714,8 @@ video {
 }
 .w-aside{
   width:100%;
-  min-width: 16rem;
-  max-width: 20%;
+  min-width: 12rem;
+  max-width: 17%;
 }
 .w-full {
   width: 100%;
