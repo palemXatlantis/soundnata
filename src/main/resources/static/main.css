@@ -1014,8 +1014,31 @@ video {
 }
 
 .overflow-y-auto{
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
+
+}
+
+.overflow-y-auto:hover{
   overflow-y: auto;
 }
 
+/* Gaya utama scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
 
+/* Gaya track scrollbar (latar belakang scrollbar) */
+::-webkit-scrollbar-track {
+  background: transparent; /* Warna latar track */
+}
 
+/* Gaya thumb scrollbar (pegangan scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #555; /* Warna thumb */
+}
+
+/* Hover efek pada thumb scrollbar */
+::-webkit-scrollbar-thumb:hover {
+  background: #f1f1f1;
+}
