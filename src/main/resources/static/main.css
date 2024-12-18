@@ -677,6 +677,10 @@ video {
   height: 24rem;
 }
 
+.h-full{
+  height: 100%;
+}
+
 .h-screen {
   height: 100vh;
 }
@@ -708,7 +712,11 @@ video {
 .w-64 {
   width: 16rem;
 }
-
+.w-aside{
+  width:100%;
+  min-width: 16rem;
+  max-width: 20%;
+}
 .w-full {
   width: 100%;
 }
@@ -901,7 +909,10 @@ video {
 }
 
 .pt-20 {
-  padding-top: 5rem;
+  padding-top: 4.5rem;
+}
+.pb-20 {
+  padding-bottom: 6rem;
 }
 
 .text-center {
@@ -1008,6 +1019,10 @@ video {
   overflow-y: auto; /* Aktifkan scroll jika diperlukan */
   scrollbar-width: thin; /* Untuk browser Firefox */
   scrollbar-color: rgba(255, 255, 255, 0.5) transparent; /* Firefox */
+}
+
+.overflow-y-auto{
+  overflow-y: auto;
 }
 
 /* Scrollbar default (tidak terlihat) */
