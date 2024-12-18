@@ -9,10 +9,10 @@
 <body class="bg-black text-white">
 <!-- Include Navigation -->
 <div th:replace="fragments/nav::nav"></div>
-<div class="flex pt-20">
+<div class="flex pt-20 pb-20 h-screen">
     <div th:replace="fragments/aside::aside"></div>
 
-    <main class="flex-1 ml-72 mb-10 p-8 space-y-8">
+    <main class="flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
         <section style="padding: 32px; padding-bottom: 16px; padding-left: 16px" class="bg-gray-700 rounded-lg p-8 min-h-screen">
             <div class="flex items-center bg-gray-800 p-4 rounded-lg">
                 <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg mr-6" />
