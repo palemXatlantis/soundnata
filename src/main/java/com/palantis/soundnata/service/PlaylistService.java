@@ -6,8 +6,10 @@ import com.palantis.soundnata.model.User;
 import com.palantis.soundnata.repository.PlaylistRepository;
 import com.palantis.soundnata.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,11 +52,14 @@ public class PlaylistService {
         playlistRepository.deleteById(id);
     }
 
-    public void addSongToPlaylist(Long playlistId, Song song) {
+    public void addSongToPlaylist(Long playlistId, Long songId) {
         Playlist playlist = getPlaylistById(playlistId);
-        if (playlist != null) {
-            song.setPlaylist(playlist);
-            songRepository.save(song);
+        Song song = songRepository.findById(songId)
+                .orElseThrow(() -> new ExpressionException("Song not found"));
+
+        if (!playlist.getSongs().contains(song)) {
+            playlist.getSongs().add(song);
+            playlistRepository.save(playlist);
         }
     }
 
@@ -63,8 +68,8 @@ public class PlaylistService {
         if (playlist != null) {
             Song song = songRepository.findById(songId).orElse(null);
             if (song != null) {
-                song.setPlaylist(null);
-                songRepository.save(song);
+                playlist.getSongs().remove(song);
+                playlistRepository.save(playlist);
             }
         }
     }
@@ -81,4 +86,13 @@ public class PlaylistService {
         User user = userService.getLoggedInUser();
         return playlistRepository.findByUser(user);
     }
+
+    public List<Song> getSongsInPlaylist(Long playlistId) {
+        Playlist playlist = getPlaylistById(playlistId);
+        if (playlist != null) {
+            return playlist.getSongs();
+        }
+        return new ArrayList<>();
+    }
+
 }
