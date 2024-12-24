@@ -1154,14 +1154,12 @@ video {
 .nav-button.prev .nav-icon {
   border-width: 8px 12px 8px 0;
   border-color: transparent #007bff transparent transparent;
-  margin-right: 2px;
 }
 
 /* Ikon untuk tombol next (menghadap kanan) */
 .nav-button.next .nav-icon {
   border-width: 8px 0 8px 12px;
   border-color: transparent transparent transparent #007bff;
-  margin-left: 2px;
 }
 
 /* Efek hover */
