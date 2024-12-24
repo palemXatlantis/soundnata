@@ -677,6 +677,10 @@ video {
   height: 24rem;
 }
 
+.h-full{
+  height: 100%;
+}
+
 .h-screen {
   height: 100vh;
 }
@@ -708,7 +712,11 @@ video {
 .w-64 {
   width: 16rem;
 }
-
+.w-aside{
+  width:100%;
+  min-width: 12rem;
+  max-width: 17%;
+}
 .w-full {
   width: 100%;
 }
@@ -901,7 +909,10 @@ video {
 }
 
 .pt-20 {
-  padding-top: 5rem;
+  padding-top: 4.5rem;
+}
+.pb-20 {
+  padding-bottom: 6rem;
 }
 
 .text-center {
@@ -1001,3 +1012,39 @@ video {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity, 1));
 }
+
+
+ .lyrics {
+   white-space: pre-line; /* Menampilkan baris baru */
+ }
+
+.overflow-y-auto{
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
+
+}
+
+.overflow-y-auto:hover{
+  overflow-y: auto;
+}
+
+/* Gaya utama scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Gaya track scrollbar (latar belakang scrollbar) */
+::-webkit-scrollbar-track {
+  background: transparent; /* Warna latar track */
+}
+
+/* Gaya thumb scrollbar (pegangan scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #555; /* Warna thumb */
+}
+
+/* Hover efek pada thumb scrollbar */
+::-webkit-scrollbar-thumb:hover {
+  background: #f1f1f1;
+}
+

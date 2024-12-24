@@ -1,4 +1,4 @@
-<aside class="bg-gray-900 w-64 p-6 fixed h-screen">
+<aside class="bg-gray-900 w-aside p-6 h-full overflow-y-auto">
     <ul class="space-y-4">
         <li>
             <a href="#" class="text-xl hover:text-blue-500">Liked Songs</a>
@@ -10,7 +10,7 @@
 
     <div class="mt-8">
         <div class="flex justify-between items-center">
-            <h2 class="text-lg font-bold mb-4">Playlists</h2>
+            <h2 class="text-lg font-bold">Playlists</h2>
             <form th:action="@{/playlist/create}" method="post">
                 <button
                         class="text-white py-2 px-4 text-2xl"
@@ -19,7 +19,6 @@
                     +
                 </button>
             </form>
-
         </div>
 
         <ul class="space-y-4 mt-6">

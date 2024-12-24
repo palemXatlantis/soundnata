@@ -12,6 +12,11 @@ SET lyrics = CONCAT(
         "She was more like a beauty queen from a movie scene", CHAR(13), CHAR(10),
         "I said, \"Don't mind, but what do you mean, I am the one", CHAR(13), CHAR(10),
         "Who will dance on the floor in the round?\""
+        "She said I am the one", CHAR(13), CHAR(10),
+        "Who will dance on the floor in the round", CHAR(13), CHAR(10),
+        "She told me her name was Billie Jean as she caused a scene", CHAR(13), CHAR(10),
+        "Then every head turned with eyes that dreamed of bein the one", CHAR(13), CHAR(10),
+        "Who will dance on the floor in the round\""
              )
 WHERE title = 'Billie Jean' AND artist = 'Michael Jackson';
 

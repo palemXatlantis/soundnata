@@ -9,14 +9,19 @@
 <body class="bg-black text-white">
 <!-- Include Navigation -->
 <div th:replace="fragments/nav::nav"></div>
-<div class="flex pt-20">
+<div class="flex pt-20 pb-20 h-screen">
     <div th:replace="fragments/aside::aside"></div>
 
-    <main class="flex-1 ml-72 mb-10 p-8 space-y-8">
-        <section style="padding: 32px; padding-bottom: 16px; padding-left: 16px" class="bg-gray-700 rounded-lg">
+    <main class="flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
+        <section style="padding: 32px; padding-bottom: 16px; padding-left: 16px" class="bg-gray-700 rounded-lg p-8 min-h-screen">
             <div class="flex items-center bg-gray-800 p-4 rounded-lg">
-            <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg">
-            <h2 class="text-2xl font-bold mb-4">Chill Music</h2>
+                <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg mr-6" />
+                <div class="flex flex-col ml-6">
+                    <h2 class="text-xl font-bold mb-6">Playlist</h2>
+                    <h2 class="text-4xl font-bold mb-6" th:text="${playlist.name}">Chill Music</h2>
+                    <h2 class="text-xl font-bold mb-1" th:text="${playlist.user.username}">username</h2>
+                </div>
+            </div>
             <div class="grid grid-cols-5 gap-4">
                 <div th:each="song : ${songs}" class="bg-gray-800 p-4 rounded-lg">
                     <img
@@ -36,7 +41,164 @@
                     </button>
                 </div>
             </div>
+            <div class="mt-6">
+                <table class="table-auto w-full">
+                    <thead>
+                    <tr class="text-left text-white text-sm border-b border-gray-600">
+                        <th class="py-3">#</th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Duration</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tbody>
+                    <tr class="bg-gray-800 hover:bg-gray-700 rounded-lg cursor-pointer group">
+                        <td class="py-3 px-4 text-gray-400">1</td>
+                        <td class="py-3">
+                            <div class="flex items-center">
+                                <img src="/images/song1.jpg" alt="Song Cover" class="w-12 h-12 rounded-lg mr-4" />
+                                <div>
+                                    <p class="font-bold text-white">Song 1</p>
+                                    <p class="text-sm text-gray-400">Album 1</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 text-gray-400">Artist 1</td>
+                        <td class="py-3 text-gray-400">3:45</td>
+                        <td class="py-3 text-right">
+                            <button class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6 4a1 1 0 0 1 1.553-.832l7 5a1 1 0 0 1 0 1.664l-7 5A1 1 0 0 1 6 14V4z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <button class="text-gray-400 hover:text-white ml-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M12 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-800 hover:bg-gray-700 rounded-lg cursor-pointer group">
+                        <td class="py-3 px-4 text-gray-400">2</td>
+                        <td class="py-3">
+                            <div class="flex items-center">
+                                <img src="/images/song2.jpg" alt="Song Cover" class="w-12 h-12 rounded-lg mr-4" />
+                                <div>
+                                    <p class="font-bold text-white">Song 2</p>
+                                    <p class="text-sm text-gray-400">Album 2</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 text-gray-400">Artist 2</td>
+                        <td class="py-3 text-gray-400">4:20</td>
+                        <td class="py-3 text-right">
+                            <button class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6 4a1 1 0 0 1 1.553-.832l7 5a1 1 0 0 1 0 1.664l-7 5A1 1 0 0 1 6 14V4z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <button class="text-gray-400 hover:text-white ml-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M12 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-800 hover:bg-gray-700 rounded-lg cursor-pointer group">
+                        <td class="py-3 px-4 text-gray-400">3</td>
+                        <td class="py-3">
+                            <div class="flex items-center">
+                                <img src="/images/song3.jpg" alt="Song Cover" class="w-12 h-12 rounded-lg mr-4" />
+                                <div>
+                                    <p class="font-bold text-white">Song 3</p>
+                                    <p class="text-sm text-gray-400">Album 3</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 text-gray-400">Artist 3</td>
+                        <td class="py-3 text-gray-400">5:00</td>
+                        <td class="py-3 text-right">
+                            <button class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6 4a1 1 0 0 1 1.553-.832l7 5a1 1 0 0 1 0 1.664l-7 5A1 1 0 0 1 6 14V4z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <button class="text-gray-400 hover:text-white ml-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M12 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                    <tr
+                            th:each="song, iterStat : ${songs}"
+                            class="bg-gray-800 hover:bg-gray-700 rounded-lg cursor-pointer group">
+                        <td class="py-3 px-4 text-gray-400" th:text="${iterStat.index + 1}"></td>
+                        <td class="py-3">
+                            <div class="flex items-center">
+                                <img
+                                        th:src="${song.imagePath}"
+                                        alt="Song Cover"
+                                        class="w-12 h-12 rounded-lg mr-4"
+                                />
+                                <div>
+                                    <p th:text="${song.title}" class="font-bold text-white"></p>
+                                    <p class="text-sm text-gray-400" th:text="${song.album}">Album Name</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 text-gray-400" th:text="${song.artist}"></td>
+                        <td class="py-3 text-gray-400" th:text="${song.duration}"></td>
+                        <td class="py-3 text-right">
+                            <!-- Play Button -->
+                            <button
+                                    class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center"
+                                    th:data-id="${song.id}"
+                                    th:data-url="${song.filePath}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                          d="M6 4a1 1 0 0 1 1.553-.832l7 5a1 1 0 0 1 0 1.664l-7 5A1 1 0 0 1 6 14V4z"
+                                          clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <!-- More Options -->
+                            <button
+                                    class="text-gray-400 hover:text-white ml-3"
+                                    th:data-id="${song.id}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                          d="M12 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"
+                                          clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
+
+        <div class="mt-6 bg-gray-800 p-6 rounded-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Let's find something for your playlist</h2>
+                <button class="text-gray-400 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M6.225 6.225a.75.75 0 011.06 0L12 10.939l4.715-4.714a.75.75 0 111.06 1.06L13.06 12l4.715 4.715a.75.75 0 11-1.06 1.06L12 13.061l-4.715 4.714a.75.75 0 11-1.06-1.06L10.939 12 6.225 7.285a.75.75 0 010-1.06z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+            <div>
+                <input
+                        type="text"
+                        placeholder="Search for songs or episodes"
+                        class="w-full bg-gray-900 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring focus:ring-blue-500"
+                />
+            </div>
+        </div>
 
 
         <section>

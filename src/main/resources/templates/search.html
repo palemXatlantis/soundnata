@@ -9,10 +9,10 @@
 <body class="bg-black text-white">
 <!-- Include Navigation -->
 <div th:replace="fragments/nav::nav"></div>
-<div class="flex pt-20">
+<div class="flex pt-20 pb-20 h-screen">
     <div th:replace="fragments/aside::aside"></div>
 
-    <main class="flex-1 ml-72 mb-10 p-8 space-y-8">
+    <main class="flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
         <section class="bg-gray-700 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h2>
             <div class="grid grid-cols-5 gap-6">
@@ -50,10 +50,11 @@
                     />
                     <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
                     <p class="text-center text-gray-400 text-sm"></p>
-                    <button
+                    <a
+                            th:href="@{/playlist/{id}(id=${playlist.id})}"
                             class="bg-blue-500 text-white rounded-lg px-4 py-2 mt-2">
                         View Playlist
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>

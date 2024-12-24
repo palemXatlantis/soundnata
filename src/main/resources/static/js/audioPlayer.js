@@ -25,7 +25,7 @@
              likeButton.classList.remove("text-gray-500"); // Hapus warna abu-abu
              likeButton.classList.add("text-red-500"); // Tambahkan warna merah
          } else {
-             likeButton.innerText = "♡"; // Kembali ke hati kosong
+             likeButton.innerText = "🤍"; // Kembali ke hati kosong
              likeButton.classList.remove("text-red-500"); // Hapus warna merah
              likeButton.classList.add("text-gray-500"); // Tambahkan warna abu-abu
          }

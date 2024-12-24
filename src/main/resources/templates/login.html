@@ -20,7 +20,7 @@
         <div class="w-1/12"></div>
         <div class="w-1/2 bg-black shadow-md rounded-lg p-8">
             <h1 class="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">
-                SN Music
+                SoundNata Music
             </h1>
             <form th:action="@{/login}" class="flex flex-col space-y-4" method="POST">
                 <input type="hidden" name="_csrf" th:value="${_csrf.token}">
@@ -69,6 +69,24 @@
                 Belum punya akun?
                 <a th:href="@{/register}" class="text-white hover:text-blue-500">Daftar di sini</a>
             </p>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="bg-gray-800 text-white text-center py-6 mt-8">
+        <h2 class="text-2xl font-bold">About SoundNata</h2>
+        <p class="mt-2">SoundNata adalah platform untuk para pecinta musik, di mana kamu bisa menikmati dan berbagi musik favoritmu!</p>
+    </div>
+
+    <!-- Image Section -->
+    <div class="flex justify-center py-8 bg-gray-900">
+        <div class="grid grid-cols-6 gap-4">
+            <img src="/images/photo1.png" alt="Photo 1" class="rounded shadow-md" />
+            <img src="/images/photo2.png" alt="Photo 2" class="rounded shadow-md" />
+            <img src="/images/photo3.png" alt="Photo 3" class="rounded shadow-md" />
+            <img src="/images/photo4.png" alt="Photo 4" class="rounded shadow-md" />
+            <img src="/images/photo5.png" alt="Photo 5" class="rounded shadow-md" />
+            <img src="/images/photo6.png" alt="Photo 6" class="rounded shadow-md" />
         </div>
     </div>
 </div>

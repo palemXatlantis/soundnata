@@ -2,10 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liked Songs</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 <body>
+<div class="container">
+    <header>
+        <h1>Liked Songs</h1>
+    </header>
 
+    <section class="song-list">
+        <div class="song-item">
+            <span class="song-title">Song Title 1</span>
+            <span class="song-artist">Artist 1</span>
+            <button class="like-btn">Liked</button>
+        </div>
+        <div class="song-item">
+            <span class="song-title">Song Title 2</span>
+            <span class="song-artist">Artist 2</span>
+            <button class="like-btn">Like</button>
+        </div>
+        <div class="song-item">
+            <span class="song-title">Song Title 3</span>
+            <span class="song-artist">Artist 3</span>
+            <button class="like-btn">Like</button>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Music App</p>
+</footer>
+
+<script>
+
+    const likeButtons = document.querySelectorAll('.like-btn');
+    likeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.textContent === 'Like') {
+                button.textContent = 'Liked';
+            } else {
+                button.textContent = 'Like';
+            }
+        });
+    });
+</script>
 </body>
 </html>
