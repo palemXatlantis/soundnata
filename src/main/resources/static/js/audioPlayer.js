@@ -4,6 +4,9 @@
     const playerProgress = document.getElementById('playerProgress');
     const volumeControl = document.getElementById('volumeControl');
     const playbackInfo = document.getElementById('playbackInfo');
+    const lyricButton= document.getElementById('lyricButton');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
     let isPlaying = false;
 
     playPauseButton.disabled = true;
@@ -39,10 +42,10 @@
 
         if (isPlaying) {
             audioPlayer.pause();
-            playPauseButton.textContent = '▶️';
+            playPauseButton.classList.remove('pause');
         } else {
             audioPlayer.play();
-            playPauseButton.textContent = '⏸️';
+            playPauseButton.classList.add('pause');
         }
         isPlaying = !isPlaying;
     });
@@ -78,6 +81,8 @@
             playbackInfo.classList.remove('invisible');
             playPauseButton.disabled = false;
             playerProgress.disabled = false;
+            lyricButton.classList.remove('invisible');
+
             const songUrl = button.getAttribute('data-url');
             const songTitle = button.getAttribute('data-title');
             const songArtist = button.getAttribute('data-artist');
@@ -86,7 +91,7 @@
             audioPlayer.src = songUrl;
             audioPlayer.play();
             isPlaying = true;
-            playPauseButton.textContent = '⏸️';
+            playPauseButton.classList.add('pause');
 
             document.getElementById('playerTitle').textContent = songTitle;
             document.getElementById('playerArtist').textContent = songArtist;

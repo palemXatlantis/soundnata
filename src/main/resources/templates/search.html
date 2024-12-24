@@ -26,13 +26,13 @@
                     <p th:text="${song.title}" class="text-center text-white font-bold mt-2"></p>
                     <p th:text="${song.artist}" class="text-center text-gray-400 text-sm"></p>
                     <button
-                            class="play-song bg-blue-500 text-white rounded-lg px-4 py-2 mt-2"
+                            class="play-song play-pause-button"
                             th:data-id="${song.id}"
                             th:data-title="${song.title}"
                             th:data-artist="${song.artist}"
                             th:data-url="${song.filePath}"
                             th:data-image="${song.imagePath}">
-                        ▶️
+                        <div class="icon"></div>
                     </button>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     <p class="text-center text-gray-400 text-sm"></p>
                     <a
                             th:href="@{/playlist/{id}(id=${playlist.id})}"
-                            class="bg-blue-500 text-white rounded-lg px-4 py-2 mt-2">
+                            class="bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white">
                         View Playlist
                     </a>
                 </div>
