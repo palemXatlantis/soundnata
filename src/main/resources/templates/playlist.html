@@ -181,44 +181,142 @@
                 </table>
             </div>
         </section>
-
         <div class="mt-6 bg-gray-800 p-6 rounded-lg">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold">Let's find something for your playlist</h2>
-                <button class="text-gray-400 hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
-                        <path fill-rule="evenodd" d="M6.225 6.225a.75.75 0 011.06 0L12 10.939l4.715-4.714a.75.75 0 111.06 1.06L13.06 12l4.715 4.715a.75.75 0 11-1.06 1.06L12 13.061l-4.715 4.714a.75.75 0 11-1.06-1.06L10.939 12 6.225 7.285a.75.75 0 010-1.06z" clip-rule="evenodd" />
-                    </svg>
-                </button>
             </div>
             <div>
                 <input
+                        id="playlistSearchInput"
                         type="text"
-                        placeholder="Search for songs or episodes"
+                        placeholder="Search for songs or artist"
                         class="w-full bg-gray-900 text-white placeholder-gray-400 rounded-lg py-3 px-4 focus:outline-none focus:ring focus:ring-blue-500"
                 />
+            </div>
+            <div id="playlistSearchResults" class="mt-6 hidden">
+                <!-- Dynamic search results will be inserted here -->
             </div>
         </div>
 
 
-        <section>
-            <h2 class="text-2xl font-bold mb-4">Recommended Playlists</h2>
-            <div class="grid grid-cols-3 gap-6">
-                <div th:each="playlist : ${playlists}" class="bg-gray-700 p-4 rounded-lg transition-transform transform hover:scale-105">
-                    <img
-                            th:src="${playlist}"
-                            alt="Playlist Image"
-                            class="w-full h-48 rounded-lg mb-2 object-cover"
-                    />
-                    <h3 class="font-bold text-lg" th:text="${playlist.name}"></h3>
-                    <p class="text-sm text-gray-400" th:text="${playlist.description}"></p>
-                </div>
-            </div>
-        </section>
+
     </main>
 </div>
 <div th:replace="fragments/playback::footer"></div>
 
+<script>
+    // Add this to your JavaScript file
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('playlistSearchInput');
+        const searchResults = document.getElementById('playlistSearchResults');
+
+        if (!searchInput) return; // Only run on playlist page
+
+        let debounceTimeout;
+
+        searchInput.addEventListener('input', function(e) {
+            clearTimeout(debounceTimeout);
+            const query = e.target.value.trim();
+
+            if (query.length < 2) {
+                searchResults.classList.add('hidden');
+                return;
+            }
+
+            debounceTimeout = setTimeout(() => {
+                performPlaylistSearch(query);
+            }, 300);
+        });
+
+        async function performPlaylistSearch(query) {
+            try {
+                const response = await fetch(`/playlist/search?query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                displayPlaylistSearchResults(data);
+            } catch (error) {
+                console.error('Search error:', error);
+            }
+        }
+
+        function displayPlaylistSearchResults(data) {
+            searchResults.classList.remove('hidden');
+
+            const songs = data.songs || [];
+            let resultsHtml = '';
+
+            if (songs.length === 0) {
+                resultsHtml = '<div class="text-center text-gray-400 py-4">No results found</div>';
+            } else {
+                resultsHtml = `
+                <div class="grid grid-cols-5 gap-4">
+                    ${songs.map(song => `
+                        <div class="bg-gray-800 p-4 rounded-lg">
+                            <img src="${song.imagePath}"
+                                 alt="Album Art"
+                                 class="w-64 h-48 rounded-lg"/>
+                            <p class="text-center text-white font-bold mt-2">${song.title}</p>
+                            <p class="text-center text-gray-400 text-sm">${song.artist}</p>
+                            <div class="flex justify-center mt-2 space-x-2">
+                                <button
+                                    class="play-song bg-blue-500 text-white rounded-lg px-4 py-2"
+                                    data-id="${song.id}"
+                                    data-title="${song.title}"
+                                    data-artist="${song.artist}"
+                                    data-url="${song.filePath}"
+                                    data-image="${song.imagePath}">
+                                    Play
+                                </button>
+                                ${song.lyrics ? `
+                                    <button
+                                        class="show-lyrics bg-green-500 text-white rounded-lg px-4 py-2"
+                                        data-title="${song.title}"
+                                        data-lyrics="${song.lyrics}">
+                                        Lyrics
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            }
+
+            searchResults.innerHTML = resultsHtml;
+
+            // Reinitialize event listeners for new elements
+            initializePlayButtons();
+            initializeLyricsButtons();
+        }
+
+        function initializePlayButtons() {
+            searchResults.querySelectorAll('.play-song').forEach(button => {
+                button.addEventListener('click', function() {
+                    const songData = {
+                        id: this.dataset.id,
+                        title: this.dataset.title,
+                        artist: this.dataset.artist,
+                        url: this.dataset.url,
+                        image: this.dataset.image
+                    };
+                    playSong(songData);
+                });
+            });
+        }
+
+        function initializeLyricsButtons() {
+            searchResults.querySelectorAll('.show-lyrics').forEach(button => {
+                button.addEventListener('click', function() {
+                    const lyricsSection = document.getElementById('lyricsSection');
+                    const lyricsContent = document.getElementById('lyricsContent');
+                    const songLyrics = this.dataset.lyrics;
+
+                    lyricsContent.textContent = songLyrics;
+                    lyricsSection.classList.remove('hidden');
+                });
+            });
+        }
+    });
+</script>
 <script th:src="@{/js/audioPlayer.js}"></script>
 <script th:src="@{/js/removeLocalStorage.js}"></script>
 </body>
