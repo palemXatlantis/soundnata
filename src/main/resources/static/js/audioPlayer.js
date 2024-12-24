@@ -3,8 +3,11 @@
     const playPauseButton = document.getElementById('playPauseButton');
     const playerProgress = document.getElementById('playerProgress');
     const volumeControl = document.getElementById('volumeControl');
-
+    const playbackInfo = document.getElementById('playbackInfo');
     let isPlaying = false;
+
+    playPauseButton.disabled = true;
+    playerProgress.disabled = true;
 
     // Restore Playback State
     const savedState = JSON.parse(localStorage.getItem('playbackState'));
@@ -33,12 +36,13 @@
 
      // Play/Pause Logic
     playPauseButton.addEventListener('click', () => {
+
         if (isPlaying) {
             audioPlayer.pause();
-            playPauseButton.textContent = 'Play';
+            playPauseButton.textContent = '▶️';
         } else {
             audioPlayer.play();
-            playPauseButton.textContent = 'Pause';
+            playPauseButton.textContent = '⏸️';
         }
         isPlaying = !isPlaying;
     });
@@ -71,6 +75,9 @@
     // Load and Play Song
     document.querySelectorAll('.play-song').forEach(button => {
         button.addEventListener('click', () => {
+            playbackInfo.classList.remove('invisible');
+            playPauseButton.disabled = false;
+            playerProgress.disabled = false;
             const songUrl = button.getAttribute('data-url');
             const songTitle = button.getAttribute('data-title');
             const songArtist = button.getAttribute('data-artist');
@@ -79,7 +86,7 @@
             audioPlayer.src = songUrl;
             audioPlayer.play();
             isPlaying = true;
-            playPauseButton.textContent = 'Pause';
+            playPauseButton.textContent = '⏸️';
 
             document.getElementById('playerTitle').textContent = songTitle;
             document.getElementById('playerArtist').textContent = songArtist;

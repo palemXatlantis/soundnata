@@ -1,7 +1,7 @@
-<footer class="bg-gray-800 p-4 fixed bottom-0 w-full">
+<footer class="bg-gray-800 p-4 fixed bottom-0 w-full ">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Song Info -->
-        <div class="flex items-center space-x-3">
+        <div id="playbackInfo" class="flex items-center space-x-3 invisible">
             <img
                     id="playerImage"
                     src=""
@@ -20,11 +20,11 @@
         </div>
 
         <!-- Playback Controls -->
-        <div class="flex flex-col items-center space-y-2 w-1/2">
+        <div class="flex flex-col items-center space-y-2 w-1/2 ">
             <div class="flex items-center space-x-4">
-                <button id="prevButton" class="text-white hover:text-blue-500">Previous</button>
-                <button id="playPauseButton" class="text-white hover:text-blue-500">Play</button>
-                <button id="nextButton" class="text-white hover:text-blue-500">Next</button>
+                <button id="prevButton" class="text-white hover:text-blue-500">⏮️</button>
+                <button id="playPauseButton" class="text-white hover:text-blue-500">▶️</button>
+                <button id="nextButton" class="text-white hover:text-blue-500">⏭️</button>
                 <button id="lyricButton" class="text-white hover:text-blue-500">Lyrics</button>
             </div>
             <input
