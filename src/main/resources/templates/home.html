@@ -46,9 +46,9 @@
         <!-- Lyrics Box -->
         <section id="lyricsSection" class="hidden bg-gray-800 rounded-lg p-6 mt-8">
             <h2 class="text-2xl font-bold mb-4">Lyrics</h2>
-            <p id="lyricsContent" class="text-gray-300 leading-relaxed">
-                saben bengi aku ra iso turu, raiso turu mikirno awakmu
-            </p>
+            <div id="lyricsContent" class="text-gray-300 leading-relaxed space-y-2">
+                <!-- Lirik akan ditambahkan secara dinamis di sini -->
+            </div>
         </section>
 
         <!-- Playlist Section -->
@@ -83,6 +83,19 @@
             const lyricsContent = document.getElementById('lyricsContent');
             const songTitle = button.getAttribute('data-title');
             const songLyrics = button.getAttribute('data-lyrics');
+
+            // Pisahkan lirik berdasarkan baris (asumsi dipisahkan dengan "\n")
+            const lyricsLines = songLyrics.split('\n');
+
+            // Kosongkan konten sebelumnya
+            lyricsContent.innerHTML = '';
+
+            // Tambahkan setiap baris sebagai elemen <p>
+            lyricsLines.forEach(line => {
+                const p = document.createElement('p');
+                p.textContent = line;
+                lyricsContent.appendChild(p);
+            });
 
             // Ubah konten lirik jika perlu (contoh: dinamis berdasarkan lagu)
             lyricsContent.textContent = songLyrics ;

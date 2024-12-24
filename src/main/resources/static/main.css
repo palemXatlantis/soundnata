@@ -1013,6 +1013,11 @@ video {
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity, 1));
 }
 
+
+ .lyrics {
+   white-space: pre-line; /* Menampilkan baris baru */
+ }
+
 .overflow-y-auto{
   overflow-y: hidden;
   scrollbar-gutter: stable;
