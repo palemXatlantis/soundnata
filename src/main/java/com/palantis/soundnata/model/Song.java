@@ -1,8 +1,12 @@
 package com.palantis.soundnata.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -33,11 +37,7 @@ public class Song {
     @Column(columnDefinition = "TEXT")
     private String lyrics;
 
-    @ManyToOne
-    @JoinColumn(name = "playlist_id")
-    private Playlist playlist;
-
-    public void setPlaylist(Playlist playlist) {
-        this.playlist = playlist;
-    }
+    @JsonBackReference
+    @ManyToMany(mappedBy = "songs")
+    private List<Playlist> playlists = new ArrayList<>();
 }

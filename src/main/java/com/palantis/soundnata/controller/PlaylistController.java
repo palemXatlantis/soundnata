@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/playlist")
@@ -34,11 +36,18 @@ public class PlaylistController {
     public String getPlaylistById(@PathVariable Long id, Model model) {
         Playlist playlist = playlistService.getPlaylistById(id);
         model.addAttribute("playlist", playlist);
+        List<Song> songs = playlistService.getSongsInPlaylist(id);
         List<Playlist> playlists = playlistService.getPlaylistsForLoggedInUser();
         model.addAttribute("playlists", playlists);
+        model.addAttribute("songs", songs);
         return "playlist";
     }
 
+    @GetMapping("/{id}/songs")
+    @ResponseBody
+    public List<Song> getSongsInPlaylist(@PathVariable Long id) {
+        return playlistService.getSongsInPlaylist(id);
+    }
 
     @PostMapping("/create")
     public String createPlaylist(Model model) {
@@ -47,12 +56,6 @@ public class PlaylistController {
         return "redirect:/playlist/" + newPlaylist.getId();
     }
 
-    @GetMapping("/{id}/edit")
-    public String editPlaylist(@PathVariable Long id, Model model) {
-        Playlist playlist = playlistService.getPlaylistById(id);
-        model.addAttribute("playlist", playlist);
-        return "edit-playlist";
-    }
 
     @PostMapping("/{id}/edit")
     public String updatePlaylist(@PathVariable Long id, @ModelAttribute Playlist playlist) {
@@ -67,19 +70,17 @@ public class PlaylistController {
         return "redirect:/playlists";
     }
 
-    @GetMapping("/{id}/add-lagu")
-    public String addLaguToPlaylist(@PathVariable Long id, Model model) {
-        Playlist playlist = playlistService.getPlaylistById(id);
-        model.addAttribute("playlist", playlist);
-        model.addAttribute("lagu", new Song());
-        return "add-lagu-to-playlist";
+    @PostMapping("/{playlistId}/add-song/{songId}")
+    @ResponseBody
+    public Map<String, String> addSongToPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
+        try {
+            playlistService.addSongToPlaylist(playlistId, songId);
+            return Map.of("status", "success");
+        } catch (Exception e) {
+            return Map.of("status", "error", "message", e.getMessage());
+        }
     }
 
-    @PostMapping("/{id}/add-lagu")
-    public String addLaguToPlaylist(@PathVariable Long id, @ModelAttribute Song lagu) {
-        playlistService.addSongToPlaylist(id, lagu);
-        return "redirect:/playlists/" + id;
-    }
 
     @GetMapping("/{id}/remove-lagu/{laguId}")
     public String removeLaguFromPlaylist(@PathVariable Long id, @PathVariable Long laguId) {
