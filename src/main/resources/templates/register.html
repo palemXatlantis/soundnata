@@ -19,14 +19,14 @@
 <div th:replace="fragments/nav_auth::nav"></div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 min-h-screen bg-gray-800">
-    <div class="flex items-center justify-center bg-gray-900">
-        <div class="bg-black shadow-md rounded-lg p-8 w-full max-w-md">
+    <div class="flex items-center justify-center bg-gray-900 z-10">
+        <div class="card-Register">
             <h1 class="text-3xl font-bold mb-6 text-center text-white">Register Account</h1>
             <form th:action="@{/register}" th:object="${user}" class="flex flex-col space-y-4" method="POST">
                 <div th:if="${error}" class="error-message" th:text="${error}"></div>
 
                 <div>
-                    <label for="email" class="block mb-2 text-sm font-medium">Email</label>
+                    <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
                     <input
                             th:field="*{email}"
                             type="email"
@@ -40,7 +40,7 @@
                 </div>
 
                 <div>
-                    <label for="username" class="block mb-2 text-sm font-medium">Username</label>
+                    <label for="username" class="block mb-2 text-sm font-medium text-white">Username</label>
                     <input
                             th:field="*{username}"
                             type="text"
@@ -54,7 +54,7 @@
                 </div>
 
                 <div>
-                    <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
+                    <label for="name" class="block mb-2 text-sm font-medium text-white">Nama</label>
                     <input
                             th:field="*{name}"
                             type="text"
@@ -68,7 +68,7 @@
                 </div>
 
                 <div>
-                    <label for="password" class="block mb-2 text-sm font-medium">Password</label>
+                    <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
                     <input
                             th:field="*{password}"
                             type="password"

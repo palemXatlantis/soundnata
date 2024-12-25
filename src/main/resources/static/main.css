@@ -1289,6 +1289,7 @@ video {
   border-radius: 0.5rem;
   background-color: white;
   animation: containerGlow 2s infinite alternate;
+  z-index: 0;
 }
 @keyframes containerGlow {
   from {
@@ -1297,4 +1298,75 @@ video {
   to {
     box-shadow: 0 0 30px rgba(59, 130, 246, 1);  /* Ungu */
   }
+}
+
+.card{
+  margin: 10px auto;
+  padding: 2em;
+  width: 100%;
+  max-width: 28rem;
+  background: #000000;
+  border-radius: 8px;
+  position: relative;
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.card::after, .card::before{
+  content: '';
+  position: absolute;
+  height: 105%;
+  width: 105%;
+  background-image: conic-gradient(from var(--angle),  #006aff, #ff00ff, #006aff);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 8px;
+  animation: 3s spin linear infinite;
+}
+.card::before{
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+@keyframes spin{
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
+}
+
+.card-Register{
+  margin: 10px auto;
+  padding: 2em;
+  width: 50%;
+  background: #000000;
+  border-radius: 8px;
+  position: relative;
+}
+
+.card-Register::after, .card-Register::before{
+  content: '';
+  position: absolute;
+  height: 103.5%;
+  width: 103.5%;
+  background-image: conic-gradient(from var(--angle),  #006aff, #ff00ff, #006aff);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 8px;
+  animation: 3s spin linear infinite;
+}
+.card-Register::before{
+  filter: blur(1.5rem);
+  opacity: 0.5;
 }
