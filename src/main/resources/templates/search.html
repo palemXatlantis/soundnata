@@ -34,6 +34,12 @@
                             th:data-image="${song.imagePath}">
                         <div class="icon"></div>
                     </button>
+                    <button
+                            class="show-lyrics lyrics-button"
+                            th:data-title="${song.title}"
+                            th:data-lyrics="${song.lyrics}">
+                        <span class="lyrics-text">Lyrics</span>
+                    </button>
                 </div>
             </div>
         </section>
