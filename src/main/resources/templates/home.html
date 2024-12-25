@@ -29,14 +29,9 @@
                                 th:data-title="${song.title}"
                                 th:data-artist="${song.artist}"
                                 th:data-url="${song.filePath}"
-                                th:data-image="${song.imagePath}">
+                                th:data-image="${song.imagePath}"
+                                th:data-lyrics="${song.lyrics}">
                             <div class="icon"></div>
-                        </button>
-                        <button
-                            class="show-lyrics lyrics-button"
-                            th:data-title="${song.title}"
-                            th:data-lyrics="${song.lyrics}">
-                            <span class="lyrics-text">Lyrics</span>
                         </button>
                     </div>
                 </div>
@@ -77,35 +72,5 @@
 <!-- JavaScript -->
 <script th:src="@{/js/audioPlayer.js}"></script>
 <script th:src="@{/js/removeLocalStorage.js}"></script>
-<script>
-    // Menampilkan/Menyembunyikan Lyrics
-    document.querySelectorAll('.show-lyrics').forEach(button => {
-        button.addEventListener('click', () => {
-            const lyricsSection = document.getElementById('lyricsSection');
-            const lyricsContent = document.getElementById('lyricsContent');
-            const songTitle = button.getAttribute('data-title');
-            const songLyrics = button.getAttribute('data-lyrics');
-
-            // Pisahkan lirik berdasarkan baris (asumsi dipisahkan dengan "\n")
-            const lyricsLines = songLyrics.split('\n');
-
-            // Kosongkan konten sebelumnya
-            lyricsContent.innerHTML = '';
-
-            // Tambahkan setiap baris sebagai elemen <p>
-            lyricsLines.forEach(line => {
-                const p = document.createElement('p');
-                p.textContent = line;
-                lyricsContent.appendChild(p);
-            });
-
-            // Ubah konten lirik jika perlu (contoh: dinamis berdasarkan lagu)
-            lyricsContent.textContent = songLyrics ;
-
-            //Toggle tampilkan atau sembunyikan box lirik
-            lyricsSection.classList.toggle('hidden');
-        });
-    });
-</script>
 </body>
 </html>

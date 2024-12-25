@@ -1,13 +1,14 @@
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const audioPlayer = document.getElementById('audioPlayer');
     const playPauseButton = document.getElementById('playPauseButton');
     const playerProgress = document.getElementById('playerProgress');
     const volumeControl = document.getElementById('volumeControl');
     const playbackInfo = document.getElementById('playbackInfo');
-    const lyricButton= document.getElementById('lyricButton');
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
+    const lyricButton = document.getElementById('lyricButton');
+    const lyricsSection = document.getElementById('lyricsSection');
+    const lyricsContent = document.getElementById('lyricsContent');
     let isPlaying = false;
+    let currentLyrics = ""; // Menyimpan lirik saat ini
 
     playPauseButton.disabled = true;
     playerProgress.disabled = true;
@@ -21,24 +22,15 @@
         document.getElementById('playerArtist').textContent = savedState.songArtist || 'Unknown Artist';
         document.getElementById('playerImage').src = savedState.songImage || 'https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1';
     }
-    let isLiked = false; // Status lagu awal
-    const likeButton = document.getElementById("likeButton");
-
-    likeButton.addEventListener("click", function () {
-         if (!isLiked) {
-             likeButton.innerText = "💙"; // Ganti ke hati penuh
-             likeButton.classList.remove("text-gray-500"); // Hapus warna abu-abu
-             likeButton.classList.add("text-red-500"); // Tambahkan warna merah
-         } else {
-             likeButton.innerText = "🤍"; // Kembali ke hati kosong
-             likeButton.classList.remove("text-red-500"); // Hapus warna merah
-             likeButton.classList.add("text-gray-500"); // Tambahkan warna abu-abu
-         }
-         isLiked = !isLiked; // Toggle status suka
-     });
-
-     // Play/Pause Logic
+    // Play/Pause Logic
+    audioPlayer.addEventListener('ended', () => {
+        isPlaying = false;
+        playPauseButton.classList.remove('pause');
+    });
     playPauseButton.addEventListener('click', () => {
+        if (audioPlayer.ended) {
+            audioPlayer.currentTime = 0;
+        }
 
         if (isPlaying) {
             audioPlayer.pause();
@@ -57,11 +49,11 @@
 
             // Save playback state periodically
             localStorage.setItem('playbackState', JSON.stringify({
-            songUrl: audioPlayer.src,
-            currentTime: audioPlayer.currentTime,
-            songTitle: document.getElementById('playerTitle').textContent,
-            songArtist: document.getElementById('playerArtist').textContent,
-            songImage: document.getElementById('playerImage').src
+                songUrl: audioPlayer.src,
+                currentTime: audioPlayer.currentTime,
+                songTitle: document.getElementById('playerTitle').textContent,
+                songArtist: document.getElementById('playerArtist').textContent,
+                songImage: document.getElementById('playerImage').src
             }));
         }
     });
@@ -87,7 +79,9 @@
             const songTitle = button.getAttribute('data-title');
             const songArtist = button.getAttribute('data-artist');
             const songImage = button.getAttribute('data-image');
+            const songLyrics = button.getAttribute('data-lyrics');
 
+            // Set audio player attributes
             audioPlayer.src = songUrl;
             audioPlayer.play();
             isPlaying = true;
@@ -105,6 +99,34 @@
                 songArtist: songArtist,
                 songImage: songImage || 'https://i.scdn.co/image/ab67616d0000b273cdb645498cd3d8a2db4d05e1'
             }));
+            // Update current lyrics
+            currentLyrics = songLyrics || "Lyrics not available."; // Isi default jika lirik kosong
+
+            // Hide lyrics section if switching songs
+            lyricsSection.classList.add('hidden');
         });
     });
+
+    // Toggle Lyrics Section
+    lyricButton.addEventListener('click', () => {
+        if (!lyricsSection.classList.contains('hidden')) {
+            lyricsSection.classList.add('hidden'); // Sembunyikan jika sudah tampil
+        } else {
+            updateLyrics(currentLyrics); // Tampilkan lirik
+            lyricsSection.classList.remove('hidden');
+        }
+    });
+
+    // Update Lyrics Function
+    function updateLyrics(lyrics) {
+        if (!lyrics || lyrics.trim() === '') {
+            lyricsContent.innerHTML = '<p>Lyrics not available.</p>';
+            return;
+        }
+
+        const lyricsLines = lyrics.split('\n');
+        lyricsContent.innerHTML = lyricsLines
+            .map(line => `<p>${line.trim()}</p>`)
+            .join('');
+    }
 });
