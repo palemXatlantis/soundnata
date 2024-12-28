@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,6 +21,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 
 @Configuration
 @EnableWebSecurity
@@ -41,6 +44,17 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .failureHandler((request, response, exception) -> {
+                            String errorMessage = "invalid_credentials";
+                            if (exception instanceof LockedException) {
+                                errorMessage = "account_locked";
+                            } else if (exception instanceof DisabledException) {
+                                errorMessage = "account_disabled";
+                            } else if (exception instanceof SessionAuthenticationException) {
+                                errorMessage = "session_expired";
+                            }
+                            response.sendRedirect("/login?error=" + errorMessage);
+                        })
                         .defaultSuccessUrl("/", true)
                         .permitAll() // Allow everyone to access the login page
                 )
