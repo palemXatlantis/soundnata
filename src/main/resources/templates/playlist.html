@@ -37,7 +37,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="song, iterStat : ${songs}" class="bg-gray-800 hover:bg-gray-700 rounded-lg cursor-pointer group">
+                    <tr th:each="song, iterStat : ${songs}" class="bg-gray-800 hover:bg-gray-700 rounded-lg cursor-pointer group"
+                        data-song-url="${song.audioPath}"
+                        data-song-title="${song.title}"
+                        data-song-artist="${song.artist}"
+                        onclick="playSong(this)"
+                    >
                         <td class="py-3 px-4 text-gray-400" th:text="${iterStat.index + 1}">1</td>
                         <td class="py-3">
                             <div class="flex items-center">
@@ -49,12 +54,12 @@
                             </div>
                         </td>
                         <td class="py-3 text-gray-400" th:text="${song.artist}">Artist</td>
-                        <td class="py-3 text-gray-400" th:text="${song.duration}">Duration</td>
+                        <td class="py-3 text-gray-400" th:text="${song.getFormattedDuration()}">Duration</td>
                         <td class="py-3 text-right">
-                            <button class="text-gray-400 hover:text-white ml-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M12 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" clip-rule="evenodd" />
-                                </svg>
+                            <button
+                                    class="add-to-playlist bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white"
+                                    th:onclick="'deleteSongFromPlaylist(' + ${playlist.id} + ',' + ${song.id} + ')'">
+                                Delete
                             </button>
                         </td>
                     </tr>
@@ -87,6 +92,87 @@
 <div th:replace="fragments/playback::footer"></div>
 
 <script>
+    let currentSongIndex = 0;
+    const songRows = Array.from(document.querySelectorAll('tr[data-song-url]'));
+
+    function playNext() {
+        currentSongIndex = (currentSongIndex + 1) % songRows.length;
+        playSong(songRows[currentSongIndex]);
+    }
+
+    function playPrevious() {
+        currentSongIndex = (currentSongIndex - 1 + songRows.length) % songRows.length;
+        playSong(songRows[currentSongIndex]);
+    }
+
+    document.getElementById('nextButton').addEventListener('click', playNext);
+    document.getElementById('prevButton').addEventListener('click', playPrevious);
+
+    function playSong(row) {
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playbackInfo = document.getElementById('playbackInfo');
+        const playerTitle = document.getElementById('playerTitle');
+        const playerArtist = document.getElementById('playerArtist');
+        const playerImage = document.getElementById('playerImage');
+
+        const songUrl = row.getAttribute('data-song-url');
+        const songTitle = row.getAttribute('data-song-title');
+        const songArtist = row.getAttribute('data-song-artist');
+
+        if (!songUrl) {
+            alert('Song URL is missing!');
+            return;
+        }
+
+        // Update the audio player source and playback info
+        audioPlayer.src = songUrl;
+        playerTitle.textContent = songTitle;
+        playerArtist.textContent = songArtist;
+        playerImage.src = row.querySelector('img').src;
+
+        // Make playback info visible
+        playbackInfo.classList.remove('invisible');
+
+        // Play the song
+        audioPlayer.play();
+    }
+
+    function formatDuration(seconds) {
+        if (!seconds) return '--:--';
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    async function deleteSongFromPlaylist(playlistId, songId) {
+        if (!confirm('Are you sure you want to remove this song from the playlist?')) {
+            return;
+        }
+
+        const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
+        const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+
+        try {
+            const response = await fetch(`/playlist/${playlistId}/remove-song/${songId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    [header]: token
+                }
+            });
+
+            if (response.ok) {
+                // Refresh the page to show updated playlist
+                window.location.reload();
+            } else {
+                alert('Failed to remove song from playlist');
+            }
+        } catch (error) {
+            console.error('Error removing song:', error);
+            alert('Error removing song from playlist');
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('playlistSearchInput');
         const searchResults = document.getElementById('playlistSearchResults');
@@ -229,6 +315,7 @@
     }
 
     function updateSongsTable(songs) {
+        const currentPlaylistId = new URL(window.location.href).pathname.split('/').pop();
         const tableBody = document.querySelector('tbody');
         if (!tableBody) {
             console.error('Table body not found');
@@ -258,14 +345,14 @@
                     </div>
                 </td>
                 <td class="py-3 text-gray-400">${song.artist || 'Unknown Artist'}</td>
-                <td class="py-3 text-gray-400">${song.duration || '--'}</td>
+                <td class="py-3 text-gray-400">${formatDuration(song.duration) || '--'}</td>
                 <td class="py-3 text-right">
-                    <button class="text-gray-400 hover:text-white ml-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                            <path fill-rule="evenodd" d="M12 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.25a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </td>
+                            <button
+                                    class="add-to-playlist bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white"
+                                    th:onclick="'deleteSongFromPlaylist(' + ${currentPlaylistId} + ',' + ${song.id} + ')'">
+                                Delete
+                            </button>
+                        </td>
             </tr>
         `;
         });

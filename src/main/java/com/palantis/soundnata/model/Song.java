@@ -37,6 +37,14 @@ public class Song {
     @Column(columnDefinition = "TEXT")
     private String lyrics;
 
+    public String getFormattedDuration() {
+        if (duration == null) return "--:--";
+
+        int minutes = duration / 60;
+        int seconds = duration % 60;
+        return String.format("%d:%02d", minutes, seconds);
+    }
+
     @JsonBackReference
     @ManyToMany(mappedBy = "songs")
     private List<Playlist> playlists = new ArrayList<>();

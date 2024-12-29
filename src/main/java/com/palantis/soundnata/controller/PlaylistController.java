@@ -7,6 +7,7 @@ import com.palantis.soundnata.model.User;
 import com.palantis.soundnata.service.PlaylistService;
 import com.palantis.soundnata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,18 +58,6 @@ public class PlaylistController {
     }
 
 
-    @PostMapping("/{id}/edit")
-    public String updatePlaylist(@PathVariable Long id, @ModelAttribute Playlist playlist) {
-        playlist.setId(id);
-        playlistService.updatePlaylist(playlist);
-        return "redirect:/playlists";
-    }
-
-    @GetMapping("/{id}/delete")
-    public String deletePlaylist(@PathVariable Long id) {
-        playlistService.deletePlaylist(id);
-        return "redirect:/playlists";
-    }
 
     @PostMapping("/{playlistId}/add-song/{songId}")
     @ResponseBody
@@ -82,9 +71,15 @@ public class PlaylistController {
     }
 
 
-    @GetMapping("/{id}/remove-lagu/{laguId}")
-    public String removeLaguFromPlaylist(@PathVariable Long id, @PathVariable Long laguId) {
-        playlistService.removeSongFromPlaylist(id, laguId);
-        return "redirect:/playlists/" + id;
+    @PostMapping("/{playlistId}/remove-song/{songId}")
+    @ResponseBody
+    public ResponseEntity<?> removeSongFromPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
+        try {
+            playlistService.removeSongFromPlaylist(playlistId, songId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
+
 }
