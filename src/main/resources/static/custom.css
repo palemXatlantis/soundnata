@@ -1,0 +1,447 @@
+.lyrics {
+    white-space: pre-line; /* Menampilkan baris baru */
+}
+
+.overflow-y-auto{
+    overflow-y: hidden;
+    scrollbar-gutter: stable;
+
+}
+
+.overflow-y-auto:hover{
+    overflow-y: auto;
+}
+
+/* Gaya utama scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Gaya track scrollbar (latar belakang scrollbar) */
+::-webkit-scrollbar-track {
+    background: transparent; /* Warna latar track */
+}
+
+/* Gaya thumb scrollbar (pegangan scrollbar) */
+::-webkit-scrollbar-thumb {
+    background: #555; /* Warna thumb */
+}
+
+/* Hover efek pada thumb scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background: #f1f1f1;
+}
+
+.invisible {
+    opacity: 0; /* Elemen tidak terlihat */
+    pointer-events: none; /* Tidak bisa diklik atau diinteraksi */
+}
+
+/* Umum: Tombol Play/Pause */
+.play-pause-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    outline: none;
+    border: 2px solid transparent;
+}
+
+/* Ikon Play - Segitiga */
+.icon:not(.pause) {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 16px;
+    border-color: transparent transparent transparent #007bff;
+    margin-left: 3px;
+}
+
+/* Ikon Pause - Dua Garis Vertikal */
+.icon.pause {
+    display: none;
+    width: 16px;
+    height: 16px;
+    position: relative;
+}
+
+/* Garis Vertikal untuk ikon Pause */
+.icon.pause::before,
+.icon.pause::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 16px;
+    background-color: #007bff;
+}
+
+.icon.pause::before {
+    left: 2px;
+}
+
+.icon.pause::after {
+    right: 2px;
+}
+
+/* Efek hover - tombol berubah menjadi biru */
+.play-pause-button.pause .icon:not(.pause) {
+    display: none;
+}
+
+.play-pause-button.pause .icon.pause {
+    display: block;
+}
+
+.play-pause-button:hover {
+    background-color: #007bff;
+    border-color: #0056b3;
+}
+
+.play-pause-button:hover .icon:not(.pause) {
+    border-color: transparent transparent transparent #fff;
+}
+
+.play-pause-button:hover .icon.pause::before,
+.play-pause-button:hover .icon.pause::after {
+    background-color: #fff;
+}
+
+/* Tombol Navigasi (Next/Prev) */
+.nav-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    outline: none;
+    border: 2px solid transparent;
+}
+
+.nav-button .nav-icon {
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+/* Ikon untuk tombol prev (menghadap kiri) */
+.nav-button.prev .nav-icon {
+    border-width: 8px 12px 8px 0;
+    border-color: transparent #007bff transparent transparent;
+}
+
+/* Ikon untuk tombol next (menghadap kanan) */
+.nav-button.next .nav-icon {
+    border-width: 8px 0 8px 12px;
+    border-color: transparent transparent transparent #007bff;
+}
+
+/* Efek hover */
+.nav-button:hover {
+    background-color: #007bff;
+    border-color: #0056b3;
+}
+
+/* Mengubah warna ikon saat hover */
+.nav-button.prev:hover .nav-icon {
+    border-color: transparent #fff transparent transparent;
+}
+
+.nav-button.next:hover .nav-icon {
+    border-color: transparent transparent transparent #fff;
+}
+
+/* Efek active saat diklik */
+.nav-button:active {
+    transform: scale(0.95);
+}
+
+/* Disabled state */
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Container untuk mengelompokkan tombol (opsional) */
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Jarak antar tombol */
+}
+
+.lyrics-button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.lyrics-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+    );
+    transition: all 0.5s ease;
+}
+
+.lyrics-icon {
+    font-size: 16px;
+    display: inline-block;
+    transform: translateY(-1px);
+}
+
+.lyrics-text {
+    letter-spacing: 0.5px;
+}
+
+/* Hover Effects */
+.lyrics-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    background: linear-gradient(135deg, #007bff 0%, #9333ea 100%);
+}
+
+.lyrics-button:hover::before {
+    left: 100%;
+}
+
+/* Active State */
+.lyrics-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+}
+
+/* Disabled State */
+.lyrics-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Optional: Active/Selected State */
+.lyrics-button.active {
+    background: linear-gradient(135deg, #1e40af 0%, #7e22ce 100%);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation for icon */
+@keyframes pulse {
+    0% { transform: scale(1) translateY(-1px); }
+    50% { transform: scale(1.1) translateY(-1px); }
+    100% { transform: scale(1) translateY(-1px); }
+}
+
+.lyrics-button:hover .lyrics-icon {
+    animation: pulse 1s infinite;
+}
+
+.glow-container {
+    display: flex;
+    width: 100%;
+    max-width: 72rem; /* 6xl dalam px */
+    height: 100%;
+    margin: 2rem auto 0;
+    border-radius: 0.5rem;
+    background-color: white;
+    animation: containerGlow 2s infinite alternate;
+    z-index: 0;
+}
+@keyframes containerGlow {
+    from {
+        box-shadow: 0 0 30px rgba(0, 242, 255, 1);
+    }
+    to {
+        box-shadow: 0 0 30px rgba(59, 130, 246, 1);
+    }
+}
+
+.card{
+    margin: 10px auto;
+    padding: 2em;
+    width: 100%;
+    max-width: 28rem;
+    background: #000000;
+    border-radius: 8px;
+    position: relative;
+}
+
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.card::after, .card::before{
+    content: '';
+    position: absolute;
+    height: 105%;
+    width: 105%;
+    background-image: conic-gradient(from var(--angle),  #006aff, #ff00ff, #006aff);
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 3px;
+    border-radius: 8px;
+    animation: 3s spin linear infinite;
+}
+.card::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+@keyframes spin{
+    from{
+        --angle: 0deg;
+    }
+    to{
+        --angle: 360deg;
+    }
+}
+
+.card-Register{
+    margin: 10px auto;
+    padding: 2em;
+    width: 50%;
+    background: #000000;
+    border-radius: 8px;
+    position: relative;
+}
+
+.card-Register::after, .card-Register::before{
+    content: '';
+    position: absolute;
+    height: 103.5%;
+    width: 103.5%;
+    background-image: conic-gradient(from var(--angle),  #006aff, #ff00ff, #006aff);
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 3px;
+    border-radius: 8px;
+    animation: 3s spin linear infinite;
+}
+.card-Register::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+
+/* Warna Border */
+.border-red-500 {
+    --tw-border-opacity: 1;
+    border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
+/* Warna Background */
+.bg-red-50 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(254 242 242 / var(--tw-bg-opacity));
+}
+
+.bg-red-500 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+/* Warna Teks */
+.text-red-500 {
+    --tw-text-opacity: 1;
+    color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-red-700 {
+    --tw-text-opacity: 1;
+    color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+
+/* Margin dan Padding */
+.mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.ml-3 {
+    margin-left: 0.75rem;
+}
+
+.pl-3 {
+    padding-left: 0.75rem;
+}
+
+/* Posisi */
+.fixed {
+    position: fixed;
+}
+
+.top-4 {
+    top: 1rem;
+}
+
+.right-4 {
+    right: 1rem;
+}
+
+.max-w-md {
+    max-width: 28rem;
+}
+
+/* Flexbox */
+.flex {
+    display: flex;
+}
+
+.flex-shrink-0 {
+    flex-shrink: 0;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+#errorAlert {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
