@@ -1,14 +1,5 @@
 <aside class="bg-gray-900 w-aside p-6 h-full overflow-y-auto">
-    <ul class="space-y-4">
-        <li>
-            <a href="#" class="text-xl hover:text-blue-500">Liked Songs</a>
-        </li>
-        <li>
-            <a href="#" class="text-xl hover:text-blue-500">Playlists</a>
-        </li>
-    </ul>
-
-    <div class="mt-8">
+    <div>
         <div class="flex justify-between items-center">
             <h2 class="text-lg font-bold">Playlists</h2>
             <form th:action="@{/playlist/create}" method="post">
@@ -22,6 +13,9 @@
         </div>
 
         <ul class="space-y-4 mt-6">
+            <li>
+                <a href="#" class="text-xl hover:text-blue-500">Liked Songs</a>
+            </li>
             <li th:each="playlist : ${playlists}" class="text-lg hover:text-blue-500">
                 <a th:href="@{/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
             </li>
