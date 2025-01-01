@@ -13,67 +13,64 @@
 <div th:replace="fragments/nav_auth::nav"></div>
 <div th:replace="fragments/alert_Error.html"></div>
 <div class="flex flex-col w-full h-screen bg-gray-700">
-    <div class="glow-container bg-gray-700 p-8 rounded-3xl shadow-lg">
-        <div class="flex flex-col items-center space-y-8">
-            <!-- Welcome Back Section -->
-            <div class="bg-gradient-to-r from-blue-700 to-purple-500 p-8 flex flex-col items-center justify-center text-black rounded-3xl transition-transform transform hover:scale-105 duration-300 shadow-[0_4px_10px_0_#ffffff] w-full">
-                <h1 class="text-3xl font-bold mb-6 text-center text-white bg-black px-4 py-2 rounded">
-                    Welcome Back
-                </h1>
-                <p class="text-lg text-center text-black">
-                    "Dunia musik menunggumu. Masuk sekarang dan nikmati harmoni tanpa batas!"
-                </p>
-            </div>
+    <div class="glow-container">
+        <div class="flex-1 bg-gradient-to-r from-blue-700 to-purple-500 p-8 flex flex-col items-center justify-center text-black rounded-3xl transition-transform transform hover:scale-105 duration-300 shadow-[0_4px_10px_0_#ffffff]">
+            <h1 class="text-3xl font-bold mb-6 text-center">Welcome Back</h1>
+            <p class="text-lg text-center">"Dunia musik menunggumu. Masuk sekarang dan nikmati harmoni tanpa batas!"</p>
+        </div>
+        <div class="card">
+            <h1 class="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">
+                SoundNata Music
+            </h1>
+            <form th:action="@{/login}" class="flex flex-col space-y-4" method="POST">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
 
-            <!-- SoundNata Music Section -->
-            <div class="bg-white p-6 rounded-lg shadow-lg w-full">
-                <h1 class="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">
-                    SoundNata Music
-                </h1>
-                <form th:action="@{/login}" class="flex flex-col space-y-4" method="POST">
-                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                    <div>
-                        <label for="username" class="block mb-2 text-sm font-medium text-black">Username</label>
-                        <input
-                                id="username"
-                                name="username"
-                                class="p-2 w-full rounded border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Masukkan username kamu.."
-                                required
-                        />
-                    </div>
-                    <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-black">Password</label>
-                        <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                class="p-2 w-full rounded border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Masukkan password kamu...."
-                                required
-                        />
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox text-blue-500" />
-                            <span class="ml-2 text-sm text-black">Ingat Saya</span>
-                        </label>
-                        <a href="forgotPassword.html" class="text-sm text-black hover:text-blue-500">Lupa Kata Sandi?</a>
-                    </div>
-                    <div class="flex justify-center mt-8">
-                        <button type="submit" class="lyrics-button">
-                            <span class="text-white text-2xl">LogIn</span>
-                        </button>
-                    </div>
-                </form>
-                <p class="text-center mt-4 text-black">
-                    Belum punya akun?
-                    <a th:href="@{/register}" class="text-black hover:text-blue-500">Daftar di sini</a>
-                </p>
-            </div>
+                <div>
+                    <label for="username" class="block mb-2 text-sm font-medium text-white">Username</label>
+                    <input
+                            id="username"
+                            name="username"
+                            class="p-2 w-full rounded border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Masukkan username kamu.."
+                            required
+                    />
+                </div>
+
+                <div>
+                    <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
+                    <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="p-2 w-full rounded border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Masukkan password kamu...."
+                            required
+                    />
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" class="form-checkbox text-blue-500" />
+                        <span class="ml-2 text-sm text-white">Ingat Saya</span>
+                    </label>
+                    <a href="forgotPassword.html" class="text-sm text-white hover:text-blue-500">Lupa Kata Sandi?</a>
+                </div>
+
+                <div class="flex justify-center mt-8">
+                    <button
+                            type="submit"
+                            class="lyrics-button"
+                    >
+                        <span class="text-white text-2xl">LogIn</span>
+                    </button>
+                </div>
+            </form>
+            <p class="text-center mt-4 text-white">
+                Belum punya akun?
+                <a th:href="@{/register}" class="text-white hover:text-blue-500">Daftar di sini</a>
+            </p>
         </div>
     </div>
-
 
     <div class="bg-gray-800 text-white text-center py-6 mt-8">
         <h2 class="text-2xl font-bold">About Team SoundNata</h2>
