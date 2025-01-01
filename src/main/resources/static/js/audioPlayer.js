@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: row.getAttribute('data-song-title'),
                 artist: row.getAttribute('data-song-artist'),
                 image: row.querySelector('img')?.src,
+                lyrics: row.getAttribute('data-song-lyrics'),
                 songId: row.getAttribute('data-song-id')
             }));
         } else {

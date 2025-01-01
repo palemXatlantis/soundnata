@@ -102,6 +102,7 @@
                         th:data-song-url="${song.filePath}"
                         th:data-song-title="${song.title}"
                         th:data-song-artist="${song.artist}"
+                        th:data-song-lyrics="${song.lyrics}"
                         th:data-song-index="${iterStat.index}">
                         <td class="py-3 px-4 text-gray-400" th:text="${iterStat.index + 1}">1</td>
                         <td class="py-3 px-4">
@@ -400,6 +401,7 @@
                         data-song-url="${song.filePath}"
                         data-song-title="${song.title}"
                         data-song-artist="${song.artist}"
+                        data-song-lyrics="${song.lyrics}"
                         data-song-index="${index}">
                         <td class="py-3 px-4 text-gray-400">${index + 1}</td>
                         <td class="py-3 px-4">
