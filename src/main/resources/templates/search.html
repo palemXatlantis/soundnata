@@ -13,7 +13,7 @@
 <div class="flex pt-20 pb-20 h-screen">
     <div th:replace="fragments/aside::aside"></div>
 
-    <main class="flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
+    <main id="mainSection" class="flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
         <section class="bg-gray-700 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h2>
             <div class="grid grid-cols-5 gap-6">
@@ -34,12 +34,6 @@
                             th:data-url="${song.filePath}"
                             th:data-image="${song.imagePath}">
                         <div class="icon"></div>
-                    </button>
-                    <button
-                            class="show-lyrics lyrics-button"
-                            th:data-title="${song.title}"
-                            th:data-lyrics="${song.lyrics}">
-                        <span class="lyrics-text">Lyrics</span>
                     </button>
                 </div>
             </div>
@@ -66,7 +60,15 @@
             </div>
         </section>
     </main>
-
+    <!-- Lyrics Box -->
+    <section id="lyricsSection" class="hidden flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
+        <div class="bg-gray-700 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">Lyrics</h2>
+            <div id="lyricsContent" class="text-gray-300 leading-relaxed space-y-2">
+                <!-- Lirik akan ditambahkan secara dinamis di sini -->
+            </div>
+        </div>
+    </section>
 </div>
 <div th:replace="fragments/playback::footer"></div>
 

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const likeButton = document.getElementById('likeButton');
 
     // Player state
+    const mainSection =document.getElementById('mainSection');
     let isPlaying = false;
     let currentLyrics = "";
     let currentSongUrl = "";
@@ -249,11 +250,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Lyrics Toggle Logic
     lyricButton.addEventListener('click', () => {
-        if (!lyricsSection.classList.contains('hidden')) {
-            lyricsSection.classList.add('hidden');
-        } else {
-            updateLyrics(currentLyrics);
+        if (lyricsSection.classList.contains('hidden')) {
             lyricsSection.classList.remove('hidden');
+            mainSection.classList.add('hidden');
+            updateLyrics(currentLyrics);
+        } else {
+            lyricsSection.classList.add('hidden');
+            mainSection.classList.remove('hidden');
         }
     });
 
@@ -264,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         const lyricsLines = lyrics.split('\n');
         lyricsContent.innerHTML = lyricsLines
+            .filter(line => line.trim() !== '')
             .map(line => `<p>${line.trim()}</p>`)
             .join('');
     }
