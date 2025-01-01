@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const lyricsSection = document.getElementById('lyricsSection');
     const lyricsContent = document.getElementById('lyricsContent');
     const likeButton = document.getElementById('likeButton');
-
-    // Player state
     const mainSection =document.getElementById('mainSection');
     let isPlaying = false;
     let currentLyrics = "";
