@@ -32,35 +32,34 @@
             <div class="mt-6">
                 <table class="table-auto w-full">
                     <thead>
-                    <tr class="text-left text-white text-sm border-b border-gray-600">
-                        <th class="py-3">#</th>
-                        <th></th>
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Duration</th>
-                        <th>Action</th>
+                    <tr class="text-center text-white text-sm border-b border-gray-600">
+                        <th class="py-3 px-4">#</th>
+                        <th class="py-3 px-4">Title</th>
+                        <th class="py-3 px-4">Artist</th>
+                        <th class="py-3 px-4">Duration</th>
+                        <th class="py-3 px-4">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="song, iterStat : ${songs}"
-                        class="bg-gray-800 hover:bg-gray-700 rounded-lg group"
+                        class="bg-gray-800 hover:bg-gray-700 rounded-lg group text-center"
                         th:data-song-url="${song.filePath}"
                         th:data-song-title="${song.title}"
                         th:data-song-artist="${song.artist}"
                         th:data-song-index="${iterStat.index}">
                         <td class="py-3 px-4 text-gray-400" th:text="${iterStat.index + 1}">1</td>
-                        <td class="py-3">
+                        <td class="py-3 px-4">
                             <div class="flex items-center">
                                 <img th:src="${song.imagePath}" alt="Song Cover" class="h-20 rounded-lg mr-4" />
                                 <div>
-                                    <p class="font-bold text-white" th:text="${song.title}">Song Title</p>
-                                    <p class="text-sm text-gray-400" th:text="${song.artist}">Artist</p>
+                                    <p class="font-bold text-white text-center" th:text="${song.title}">Song Title</p>
+                                    <p class="text-sm text-gray-400 text-center" th:text="${song.artist}">Artist</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="py-3 text-gray-400" th:text="${song.artist}">Artist</td>
-                        <td class="py-3 text-gray-400" th:text="${song.getFormattedDuration()}">Duration</td>
-                        <td class="py-3 text-right">
+                        <td class="py-3 px-4 text-gray-400" th:text="${song.artist}">Artist</td>
+                        <td class="py-3 px-4 text-gray-400" th:text="${song.getFormattedDuration()}">Duration</td>
+                        <td class="py-3 px-4">
                             <button class="delete-song bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white"
                                     th:onclick="'deleteSongFromPlaylist(' + ${playlist.id} + ',' + ${song.id} + ')'">
                                 Delete
@@ -70,6 +69,7 @@
                     </tbody>
                 </table>
             </div>
+
         </section>
         <div class="mt-6 bg-gray-800 p-6 rounded-lg">
             <div class="flex justify-between items-center mb-4">
