@@ -82,4 +82,15 @@ public class PlaylistController {
         }
     }
 
+    @PostMapping("/{id}/delete")
+    public String deletePlaylist(@PathVariable Long id, Model model) {
+        try {
+            playlistService.deletePlaylist(id);
+            return "redirect:/"; // Redirect ke halaman daftar playlist
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "error"; // Redirect ke halaman error jika ada masalah
+        }
+    }
+
 }
