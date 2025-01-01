@@ -96,7 +96,9 @@
     <div class="flex items-center justify-center p-8 hero-image">
         <div class="text-white max-w-md text-center">
             <h2 class="text-4xl font-bold mb-4 animate-fadeInUp">Welcome to SoundNata</h2>
-            <p class="text-lg animate-typing">"Register for Free & We are ready to welcome you to our big family!"</p>
+            <p class="text-lg animate-typing">
+                "Register for Free & We are ready to welcome you to our big family!"
+            </p>
         </div>
     </div>
 
@@ -113,7 +115,7 @@
         }
 
         .animate-fadeInUp {
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp 1s ease-out forwards;
         }
 
         @keyframes typing {
@@ -125,21 +127,27 @@
             }
         }
 
+        @keyframes blink {
+            0%, 100% {
+                border-color: transparent;
+            }
+            50% {
+                border-color: white;
+            }
+        }
+
         .animate-typing {
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
-            border-right: 3px solid #fff; /* Simulasi kursor mengetik */
-            width: 0;
-            animation: typing 4s steps(40) 1s forwards;
-            transition: width 0.3s ease-in-out;
-        }
-
-
-        .animate-typing {
-            width: auto;
+            border-right: 3px solid #fff;
+            animation: typing 4s steps(80, end), blink 0.7s step-end infinite;
+            max-width: 100%;
         }
     </style>
+
+
+
 
 
 </div>
