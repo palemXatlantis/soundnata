@@ -269,9 +269,9 @@
     width: 100%;
     max-width: 72rem; /* 6xl dalam px */
     height: 100%;
-    margin: 2rem auto 0;
+    margin: 2rem auto 2rem;
     border-radius: 0.5rem;
-    background-color: white;
+    background-color: black;
     animation: containerGlow 2s infinite alternate;
     z-index: 0;
 }
@@ -518,6 +518,38 @@
 .playAll-button.active {
     background: linear-gradient(135deg, #1e40af 0%, #7e22ce 100%);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.background-image-login {
+    background-image: url('/images/bglogin.jpeg'); /* Gunakan path relatif dari folder 'static' */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.5); /* Warna hitam dengan transparansi 50% */
+    background-blend-mode: multiply; /* Menggabungkan warna overlay dengan gambar */
+    border-radius: 8px;
+}
+
+.fullscreen-background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -9999; /* Sangat di belakang dibanding elemen lainnya */
+    background-image: url('/images/bglogin.jpeg'); /* Gambar background */
+    background-size: cover; /* Menutupi seluruh layar */
+    background-position: center; /* Fokus pada bagian tengah gambar */
+    background-repeat: no-repeat; /* Tidak mengulang gambar */
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+    background-blend-mode: multiply; /* Gabungkan overlay dengan gambar */
 }
 
 
