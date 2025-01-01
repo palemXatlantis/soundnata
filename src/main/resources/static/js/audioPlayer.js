@@ -316,6 +316,9 @@ document.addEventListener('DOMContentLoaded', function() {
         playPauseButton.classList.remove('pause');
     }
 
+
+
+
     // Initialize playlist features
     initializePlaylist();
     initializePlayButtons();

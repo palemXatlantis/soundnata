@@ -49,6 +49,17 @@ public class PlaylistService {
     }
 
     public void deletePlaylist(Long id) {
+        Playlist playlist = playlistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Playlist not found with id: " + id));
+
+        User loggedInUser = userService.getLoggedInUser();
+        if (!playlist.getUser().equals(loggedInUser)) {
+            throw new IllegalStateException("You don't have permission to delete this playlist");
+        }
+
+        playlist.getSongs().clear();
+        playlistRepository.save(playlist);
+
         playlistRepository.deleteById(id);
     }
 
