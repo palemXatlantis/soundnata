@@ -9,16 +9,16 @@
     <link th:href="@{/images/iconsoundnata.png}" rel="icon" type="image/png" />
 </head>
 
-<body class="bg-gray-100">
+<body class="fullscreen-background">
 <div th:replace="fragments/nav_auth::nav"></div>
 <div th:replace="fragments/alert_Error.html"></div>
-<div class="flex flex-col w-full h-screen bg-gray-700">
+<div class="flex flex-col w-full h-full ">
     <div class="glow-container">
-        <div class="flex-1 bg-gradient-to-r from-blue-700 to-purple-500 p-8 flex flex-col items-center justify-center text-black rounded-3xl transition-transform transform hover:scale-105 duration-300 shadow-[0_4px_10px_0_#ffffff]">
-            <h1 class="text-3xl font-bold mb-6 text-center text-black fade-in">
+        <div class="background-image-login">
+            <h1 class="text-3xl font-bold mb-6 text-center text-white fade-in">
                 Welcome Back
             </h1>
-            <p class="text-lg text-center text-black typing-text">"Dunia musik menunggumu. Masuk sekarang dan nikmati harmoni tanpa batas!"</p>
+            <p class="text-lg text-center text-white typing-text">"Dunia musik menunggumu. Masuk sekarang dan nikmati harmoni tanpa batas!"</p>
         </div>
 
         <style>
@@ -141,7 +141,7 @@
                 </div>
             </div>
 
-
+    </div>
     </div>
 </body>
 </html>
