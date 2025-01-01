@@ -129,11 +129,18 @@
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
-            border-right: 3px solid #fff;
+            border-right: 3px solid #fff; /* Simulasi kursor mengetik */
             width: 0;
             animation: typing 4s steps(40) 1s forwards;
+            transition: width 0.3s ease-in-out;
+        }
+
+
+        .animate-typing {
+            width: auto;
         }
     </style>
+
 
 </div>
 </body>
