@@ -13,10 +13,9 @@
         </div>
 
         <ul class="space-y-4 mt-6">
-            <li>
-                <a href="#" class="text-xl hover:text-blue-500">Liked Songs</a>
-            </li>
-            <li th:each="playlist : ${playlists}" class="text-lg hover:text-blue-500">
+            <!-- Other playlists -->
+            <li th:each="playlist : ${playlists}"
+                class="text-lg hover:text-blue-500">
                 <a th:href="@{/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
             </li>
         </ul>

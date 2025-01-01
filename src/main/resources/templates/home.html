@@ -7,6 +7,8 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link th:href="@{/custom.css}" rel="stylesheet" />
     <link th:href="@{/images/iconsoundnata.png}" rel="icon" type="image/png" />
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body class="bg-black text-white">
 <div th:replace="fragments/nav::nav"></div>
