@@ -22,13 +22,23 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // Method for checking if user already exists by username or email
+    public boolean isUserExists(String username, String email) {
+        return userRepository.existsByUsername(username) || userRepository.existsByEmail(email);
+    }
+
     public User registerNewUser(User user) {
         // Check if username or email already exists
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new RuntimeException("Nama pengguna sudah terdaftar");
         }
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new RuntimeException("Email sudah terdaftar");
+        }
+
+        // Validate password
+        if (!isValidPassword(user.getPassword())) {
+            throw new RuntimeException("Password harus memiliki minimal 8 karakter, mengandung huruf kecil, huruf besar, angka, dan karakter spesial.");
         }
 
         // Encode password before saving
@@ -51,4 +61,12 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+    private boolean isValidPassword(String password) {
+        // Check if password meets the criteria
+        return password.length() >= 8 &&
+                password.matches(".*[a-z].*") &&
+                password.matches(".*[A-Z].*") &&
+                password.matches(".*\\d.*") &&
+                password.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
+    }
 }
