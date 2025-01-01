@@ -16,10 +16,10 @@
     </style>
 </head>
 
-<body>
+<body class="fullscreen-background">
 <div th:replace="fragments/nav_auth::nav"></div>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 fullscreen-background">
+<div class="grid grid-cols-1 lg:grid-cols-2">
     <div class="flex items-center justify-center mt-8 z-10">
         <div class="card-Register">
             <h1 class="text-3xl font-bold mb-6 text-center text-white">Register Account</h1>
@@ -95,10 +95,48 @@
     </div>
     <div class="flex items-center justify-center p-8 hero-image">
         <div class="text-white max-w-md text-center">
-            <h2 class="text-4xl font-bold mb-4">Welcome to SoundNata</h2>
-            <p class="text-lg">"Register for Free & We are ready to welcome you to our big family!"</p>
+            <h2 class="text-4xl font-bold mb-4 animate-fadeInUp">Welcome to SoundNata</h2>
+            <p class="text-lg animate-typing">"Register for Free & We are ready to welcome you to our big family!"</p>
         </div>
     </div>
+
+    <style>
+        /* Animasi untuk efek muncul ke permukaan pada h2 */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Animasi untuk efek mengetik pada p */
+        @keyframes typing {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        .animate-typing {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #fff; /* Simulasi kursor mengetik */
+            width: 0;
+            animation: typing 4s steps(40) 1s forwards;
+        }
+    </style>
+
 </div>
 </body>
 </html>

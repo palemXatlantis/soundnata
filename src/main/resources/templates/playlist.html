@@ -16,6 +16,48 @@
     <div th:replace="fragments/aside::aside"></div>
 
     <main id="mainSection" class="flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
+        <div id="editTitleModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-gray-800 p-8 rounded-lg w-[500px]">
+                <h3 class="text-2xl font-bold mb-6">Edit Playlist Details</h3>
+
+                <div class="space-y-4">
+                    <div>
+                        <label for="editTitleInput" class="block text-sm font-medium text-gray-300 mb-2">Title</label>
+                        <input
+                                type="text"
+                                id="editTitleInput"
+                                class="w-full bg-gray-700 text-white rounded-lg py-3 px-4 focus:outline-none focus:ring focus:ring-blue-500"
+                                placeholder="Enter playlist title"
+                        />
+                    </div>
+
+                    <div>
+                        <label for="editDescriptionInput" class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                        <textarea
+                                id="editDescriptionInput"
+                                rows="4"
+                                class="w-full bg-gray-700 text-white rounded-lg py-3 px-4 focus:outline-none focus:ring focus:ring-blue-500 resize-none"
+                                placeholder="Enter playlist description"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button
+                            id="cancelEditTitle"
+                            class="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                            id="saveEditTitle"
+                            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors"
+                    >
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
         <section style="padding: 32px; padding-bottom: 16px; padding-left: 16px" class="bg-gray-700 rounded-lg p-8 min-h-screen">
             <div class="flex items-center bg-gray-800 p-4 rounded-lg">
                 <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg mr-6" />
@@ -103,9 +145,50 @@
         </div>
     </section>
 </div>
-<div th:replace="fragments/playback::footer"></div>
 
+
+<div th:replace="fragments/playback::footer"></div>
+<script th:src="@{/js/audioPlayer.js}"></script>
 <script>
+    function initializePlayButtons() {
+        // For table rows (playlist page)
+        document.querySelectorAll('tr[data-song-url]').forEach((row, index) => {
+            const playButton = document.createElement('button');
+            playButton.className = 'play-song-button text-white hover:text-green-500 transition-colors mr-2 px-2';
+            playButton.textContent = '▶';
+
+            playButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentSongIndex = index;
+                playSongFromPlaylist(index);
+            });
+
+            const firstCell = row.querySelector('td');
+            if (firstCell) {
+                firstCell.insertBefore(playButton, firstCell.firstChild);
+            }
+        });
+
+        // For cards (home page)
+        document.querySelectorAll('.play-song').forEach((button, index) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentSongIndex = index;
+                playSongFromPlaylist(index);
+            });
+        });
+
+        // Initialize Play All button if it exists
+        const playAllButton = document.getElementById('playAllButton');
+        if (playAllButton) {
+            playAllButton.addEventListener('click', () => {
+                if (playlist.length > 0) {
+                    currentSongIndex = 0;
+                    playSongFromPlaylist(0);
+                }
+            });
+        }
+    }
     function formatDuration(seconds) {
         if (!seconds) return '--:--';
         const minutes = Math.floor(seconds / 60);
@@ -277,13 +360,13 @@
             }
             const songs = await response.json();
             console.log('Received updated songs:', songs);
-            updateSongsTable(songs);
+            updateSongsTable(songs, playlistId);
         } catch (error) {
             console.error('Error refreshing playlist table:', error);
         }
     }
 
-    function updateSongsTable(songs) {
+    function updateSongsTable(songs, playlistId) {
         const currentPlaylistId = new URL(window.location.href).pathname.split('/').pop();
         const tableBody = document.querySelector('tbody');
         if (!tableBody) {
@@ -300,80 +383,116 @@
             }
 
             tableRows += `
-            <tr class="bg-gray-800 hover:bg-gray-700 rounded-lg cursor-pointer group">
-                <td class="py-3 px-4 text-gray-400">${index + 1}</td>
-                <td class="py-3">
-                    <div class="flex items-center">
-                        <img src="${song.imagePath || '/images/default-album.jpg'}"
-                             alt="Song Cover"
-                             class="h-20 rounded-lg mr-4" />
-                        <div>
-                            <p class="font-bold text-white">${song.title || 'Unknown Title'}</p>
-                            <p class="text-sm text-gray-400">${song.artist || 'Unknown Artist'}</p>
-                        </div>
-                    </div>
-                </td>
-                <td class="py-3 text-gray-400">${song.artist || 'Unknown Artist'}</td>
-                <td class="py-3 text-gray-400">${formatDuration(song.duration) || '--'}</td>
-                <td class="py-3 text-right">
-                            <button
-                                    class="add-to-playlist bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white"
-                                    th:onclick="'deleteSongFromPlaylist(' + ${currentPlaylistId} + ',' + ${song.id} + ')'">
+                                <tr class="bg-gray-800 hover:bg-gray-700 rounded-lg group"
+                        data-song-id="${song.id}"
+                        data-song-url="${song.filePath}"
+                        data-song-title="${song.title}"
+                        data-song-artist="${song.artist}"
+                        data-song-index="${index}">
+                        <td class="py-3 px-4 text-gray-400">${index + 1}</td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center">
+                                <img src="${song.imagePath}" alt="Song Cover" class="h-20 rounded-lg mr-4" />
+                                <div>
+                                    <p class="font-bold text-white text-left" >${song.title}</p>
+                                    <p class="text-sm text-gray-400 text-left">${song.artist}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 text-gray-400" >${song.artist}</td>
+                        <td class="py-3 px-4 text-gray-400" >${formatDuration(song.duration)}</td>
+                        <td class="py-3 px-4">
+                            <button class="delete-song bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white" onclick="deleteSongFromPlaylist(${playlistId},${song.id})">
                                 Delete
                             </button>
                         </td>
-            </tr>
+                    </tr>
+
         `;
         });
 
         tableBody.innerHTML = tableRows;
+        initializePlayButtons();
+
     }
 </script>
 
 <script>
-    const playlistTitle = document.getElementById('playlistTitle');
-    const modal = document.getElementById('editPlaylistModal');
-    const form = document.getElementById('editPlaylistForm');
-    const nameInput = document.getElementById('playlistName');
-    const descriptionInput = document.getElementById('playlistDescription');
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('editTitleModal');
+        const playlistTitle = document.getElementById('playlistTitle');
+        const editTitleInput = document.getElementById('editTitleInput');
+        const saveButton = document.getElementById('saveEditTitle');
+        const cancelButton = document.getElementById('cancelEditTitle');
+        const csrfToken = document.querySelector("meta[name='_csrf']").content;
+        const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
 
-    // Add click event to playlist title
-    playlistTitle.addEventListener('click', () => {
-        openEditPlaylistModal();
-    });
+        // Show modal when clicking the title
+        playlistTitle.addEventListener('click', function() {
+            editTitleInput.value = playlistTitle.textContent;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            editTitleInput.focus();
+        });
+        playlistTitle.style.cursor = 'pointer';
+        playlistTitle.classList.add('hover:text-gray-300', 'cursor-pointer');
+        modal.style.zIndex = '9999';
 
-    function openEditPlaylistModal() {
-        // Get current playlist data
-        const currentPlaylistId = new URL(window.location.href).pathname.split('/').pop();
-        const currentName = playlistTitle.textContent;
+        // Hide modal when clicking cancel
+        cancelButton.addEventListener('click', function() {
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        });
 
-        // Set current values in form
-        nameInput.value = currentName;
+        // Save the new title
+        saveButton.addEventListener('click', async function() {
+            const newTitle = editTitleInput.value.trim();
+            if (!newTitle) return;
 
-        // Show modal
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
+            const playlistId = window.location.pathname.split('/').pop();
 
-    function closeEditPlaylistModal() {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }
+            try {
+                const response = await fetch(`/api/playlists/${playlistId}/title`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        [csrfHeader]: csrfToken
+                    },
+                    body: JSON.stringify({ title: newTitle })
+                });
 
-    // Close modal when clicking outside
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeEditPlaylistModal();
-        }
-    });
+                if (response.ok) {
+                    playlistTitle.textContent = newTitle;
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                } else {
+                    alert('Failed to update playlist title');
+                }
+            } catch (error) {
+                console.error('Error updating playlist title:', error);
+                alert('Error updating playlist title');
+            }
+        });
 
-    // Prevent modal close when clicking inside the modal content
-    modal.querySelector('.bg-gray-800').addEventListener('click', (e) => {
-        e.stopPropagation();
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Handle Enter key in input
+        editTitleInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                saveButton.click();
+            } else if (e.key === 'Escape') {
+                cancelButton.click();
+            }
+        });
     });
 
 </script>
-<script th:src="@{/js/audioPlayer.js}"></script>
 <script th:src="@{/js/removeLocalStorage.js}"></script>
 </body>
 </html>
