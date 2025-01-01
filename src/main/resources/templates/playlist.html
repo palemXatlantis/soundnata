@@ -23,8 +23,9 @@
                     <h2 class="text- xl font-bold mb-6">Playlist</h2>
                     <h2 class="text-4xl font-bold mb-6" th:text="${playlist.name}">Chill Music</h2>
                     <h2 class="text-xl font-bold mb-1" th:text="${playlist.user.username}">username</h2>
-                    <button id="playAllButton" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full mt-4 flex items-center">
-                        Play All
+                    <button id="playAllButton" class="playAll-button">
+                        <div class="icon-play"></div>
+                        <span class="lyrics-text font-bold">Play All</span>
                     </button>
                 </div>
             </div>
@@ -52,8 +53,8 @@
                             <div class="flex items-center">
                                 <img th:src="${song.imagePath}" alt="Song Cover" class="h-20 rounded-lg mr-4" />
                                 <div>
-                                    <p class="font-bold text-white text-center" th:text="${song.title}">Song Title</p>
-                                    <p class="text-sm text-gray-400 text-center" th:text="${song.artist}">Artist</p>
+                                    <p class="font-bold text-white text-left" th:text="${song.title}">Song Title</p>
+                                    <p class="text-sm text-gray-400 text-left" th:text="${song.artist}">Artist</p>
                                 </div>
                             </div>
                         </td>
