@@ -22,6 +22,11 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // Method for checking if user already exists by username or email
+    public boolean isUserExists(String username, String email) {
+        return userRepository.existsByUsername(username) || userRepository.existsByEmail(email);
+    }
+
     public User registerNewUser(User user) {
         // Check if username or email already exists
         if (userRepository.existsByUsername(user.getUsername())) {

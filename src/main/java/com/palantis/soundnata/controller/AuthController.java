@@ -23,10 +23,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(User user) {
-        userService.registerNewUser(user); // Register the user
-        return "redirect:/login"; // Redirect to the login page after registration
+    public String registerUser(User user, Model model) {
+        try {
+            userService.registerNewUser(user); // Try to register the user
+            return "redirect:/login"; // Redirect to the login page after successful registration
+        } catch (RuntimeException e) {
+            model.addAttribute("errorMessage", e.getMessage()); // Add error message to the model
+            return "register"; // Return to registration page with error message
+        }
     }
+
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("imageName", "anakkelas.jpg");
