@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lyricButton = document.getElementById('lyricButton');
     const lyricsSection = document.getElementById('lyricsSection');
     const lyricsContent = document.getElementById('lyricsContent');
+    const mainSection =document.getElementById('mainSection');
     let isPlaying = false;
     let currentLyrics = "";
     let currentSongUrl = "";
@@ -170,11 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lyrics Toggle Logic
     lyricButton.addEventListener('click', () => {
-        if (!lyricsSection.classList.contains('hidden')) {
-            lyricsSection.classList.add('hidden');
-        } else {
-            updateLyrics(currentLyrics);
+        if (lyricsSection.classList.contains('hidden')) {
             lyricsSection.classList.remove('hidden');
+            mainSection.classList.add('hidden');
+            updateLyrics(currentLyrics);
+        } else {
+            lyricsSection.classList.add('hidden');
+            mainSection.classList.remove('hidden');
         }
     });
 
@@ -185,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const lyricsLines = lyrics.split('\n');
         lyricsContent.innerHTML = lyricsLines
+            .filter(line => line.trim() !== '')
             .map(line => `<p>${line.trim()}</p>`)
             .join('');
     }
