@@ -28,6 +28,38 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('playbackState', JSON.stringify(state));
     };
 
+    document.addEventListener('play-song', (event) => {
+        const { url, title, artist, image } = event.detail;
+
+        // Show controls
+        const playbackInfo = document.getElementById('playbackInfo');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const playerProgress = document.getElementById('playerProgress');
+        const lyricButton = document.getElementById('lyricButton');
+
+        playbackInfo.classList.remove('invisible');
+        playPauseButton.disabled = false;
+        playerProgress.disabled = false;
+        lyricButton.classList.remove('invisible');
+
+        // Update display info
+        document.getElementById('playerTitle').textContent = title;
+        document.getElementById('playerArtist').textContent = artist;
+        document.getElementById('playerImage').src = image;
+
+        // Set up audio
+        const audioPlayer = document.getElementById('audioPlayer');
+        audioPlayer.src = url;
+        audioPlayer.load();
+
+        // Play and update UI
+        audioPlayer.play().then(() => {
+            isPlaying = true;
+            playPauseButton.classList.add('pause');
+            savePlaybackState();
+        }).catch(error => console.error('Playback failed:', error));
+    });
+
     // Load and Play Song
     document.querySelectorAll('.play-song').forEach(button => {
         button.addEventListener('click', () => {

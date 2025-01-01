@@ -20,9 +20,12 @@
             <div class="flex items-center bg-gray-800 p-4 rounded-lg">
                 <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg mr-6" />
                 <div class="flex flex-col ml-6">
-                    <h2 class="text-xl font-bold mb-6">Playlist</h2>
+                    <h2 class="text- xl font-bold mb-6">Playlist</h2>
                     <h2 class="text-4xl font-bold mb-6" th:text="${playlist.name}">Chill Music</h2>
                     <h2 class="text-xl font-bold mb-1" th:text="${playlist.user.username}">username</h2>
+                    <button id="playAllButton" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full mt-4 flex items-center">
+                        Play All
+                    </button>
                 </div>
             </div>
 
@@ -31,6 +34,7 @@
                     <thead>
                     <tr class="text-left text-white text-sm border-b border-gray-600">
                         <th class="py-3">#</th>
+                        <th></th>
                         <th>Title</th>
                         <th>Artist</th>
                         <th>Duration</th>
@@ -38,12 +42,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="song, iterStat : ${songs}" class="bg-gray-800 hover:bg-gray-700 rounded-lg cursor-pointer group"
-                        data-song-url="${song.audioPath}"
-                        data-song-title="${song.title}"
-                        data-song-artist="${song.artist}"
-                        onclick="playSong(this)"
-                    >
+                    <tr th:each="song, iterStat : ${songs}"
+                        class="bg-gray-800 hover:bg-gray-700 rounded-lg group"
+                        th:data-song-url="${song.filePath}"
+                        th:data-song-title="${song.title}"
+                        th:data-song-artist="${song.artist}"
+                        th:data-song-index="${iterStat.index}">
                         <td class="py-3 px-4 text-gray-400" th:text="${iterStat.index + 1}">1</td>
                         <td class="py-3">
                             <div class="flex items-center">
@@ -57,15 +61,13 @@
                         <td class="py-3 text-gray-400" th:text="${song.artist}">Artist</td>
                         <td class="py-3 text-gray-400" th:text="${song.getFormattedDuration()}">Duration</td>
                         <td class="py-3 text-right">
-                            <button
-                                    class="add-to-playlist bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white"
+                            <button class="delete-song bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white"
                                     th:onclick="'deleteSongFromPlaylist(' + ${playlist.id} + ',' + ${song.id} + ')'">
                                 Delete
                             </button>
                         </td>
                     </tr>
                     </tbody>
-
                 </table>
             </div>
         </section>
@@ -93,51 +95,6 @@
 <div th:replace="fragments/playback::footer"></div>
 
 <script>
-    let currentSongIndex = 0;
-    const songRows = Array.from(document.querySelectorAll('tr[data-song-url]'));
-
-    function playNext() {
-        currentSongIndex = (currentSongIndex + 1) % songRows.length;
-        playSong(songRows[currentSongIndex]);
-    }
-
-    function playPrevious() {
-        currentSongIndex = (currentSongIndex - 1 + songRows.length) % songRows.length;
-        playSong(songRows[currentSongIndex]);
-    }
-
-    document.getElementById('nextButton').addEventListener('click', playNext);
-    document.getElementById('prevButton').addEventListener('click', playPrevious);
-
-    function playSong(row) {
-        const audioPlayer = document.getElementById('audioPlayer');
-        const playbackInfo = document.getElementById('playbackInfo');
-        const playerTitle = document.getElementById('playerTitle');
-        const playerArtist = document.getElementById('playerArtist');
-        const playerImage = document.getElementById('playerImage');
-
-        const songUrl = row.getAttribute('data-song-url');
-        const songTitle = row.getAttribute('data-song-title');
-        const songArtist = row.getAttribute('data-song-artist');
-
-        if (!songUrl) {
-            alert('Song URL is missing!');
-            return;
-        }
-
-        // Update the audio player source and playback info
-        audioPlayer.src = songUrl;
-        playerTitle.textContent = songTitle;
-        playerArtist.textContent = songArtist;
-        playerImage.src = row.querySelector('img').src;
-
-        // Make playback info visible
-        playbackInfo.classList.remove('invisible');
-
-        // Play the song
-        audioPlayer.play();
-    }
-
     function formatDuration(seconds) {
         if (!seconds) return '--:--';
         const minutes = Math.floor(seconds / 60);
@@ -362,6 +319,7 @@
     }
 </script>
 <script th:src="@{/js/audioPlayer.js}"></script>
+<script th:src="@{/js/playlist-play.js}"></script>
 <script th:src="@{/js/removeLocalStorage.js}"></script>
 </body>
 </html>
