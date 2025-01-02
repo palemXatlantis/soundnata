@@ -14,4 +14,5 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     List<Playlist> findByUser(User user);
     long countByUser(User user);
     Optional<Playlist> findByUserAndName(User user, String name);
+    List<Playlist> findByNameContainingIgnoreCaseOrSongs_TitleContainingIgnoreCase(String name, String title);
 }
