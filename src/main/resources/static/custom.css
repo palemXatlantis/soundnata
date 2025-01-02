@@ -664,6 +664,8 @@
 }
 
 .playlist-box {
+    width: 256px; /* Sama seperti music-box */
+    height: 320px; /* Sama seperti music-box */
     transition: outline 0.3s ease, transform 0.3s ease;
 }
 
