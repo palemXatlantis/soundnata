@@ -653,3 +653,12 @@
     margin-top: 10px;
     text-align: center;
 }
+
+.music-box {
+    transition: outline 0.3s ease, transform 0.3s ease;
+}
+
+.music-box:hover {
+    outline: 3px solid white; /* Outline putih */
+    transform: scale(1.05);  /* Sedikit memperbesar box */
+}
