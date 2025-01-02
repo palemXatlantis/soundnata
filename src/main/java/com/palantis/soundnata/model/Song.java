@@ -8,6 +8,9 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Set;
+import java.util.HashSet;
+
 @Data
 @Entity
 @Table(
@@ -25,13 +28,25 @@ public class Song {
     @NotBlank(message = "Artist is required")
     private String artist;
 
-    @NotBlank(message = "File path is required")
     private String filePath;
 
-    @NotBlank(message = "File path is required")
     private String imagePath;
 
     private Integer duration;
+
+    private String album = "Unknown Album";  // Default value
+    private Integer year = null;  // Default value
+    private String genre = "Unknown Genre";  // Default value
+    private Integer trackNumber = null;  // Default value
+    private String albumArtist = "Unknown Album Artist";  // Default value
+    private String composer = "Unknown Composer";  // Default value
+    private Long bitrate = 0L;  // Default value
+    private Integer sampleRate = 0;  // Default value
+    private String audioFormat = "Unknown Format";  // Default value
+
+    @Lob
+    @Column(name = "album_image")
+    private byte[] albumImage;
 
     @Lob // Large Object for handling long text data
     @Column(columnDefinition = "TEXT")
@@ -48,4 +63,9 @@ public class Song {
     @JsonBackReference
     @ManyToMany(mappedBy = "songs")
     private List<Playlist> playlists = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "song_tags", joinColumns = @JoinColumn(name = "song_id"))
+    @Column(name = "tag")
+    private Set<String> tags = new HashSet<>();
 }
