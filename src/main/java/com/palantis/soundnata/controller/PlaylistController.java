@@ -93,4 +93,30 @@ public class PlaylistController {
         }
     }
 
+    @PostMapping("/{id}/update")
+    @ResponseBody
+    public ResponseEntity<?> updatePlaylistTitle(@PathVariable Long id, @RequestBody Map<String, String> payload) {
+        try {
+            String newTitle = payload.get("title");
+            String newDescription = payload.get("description");
+            if (newTitle == null || newTitle.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of(
+                        "status", "error",
+                        "message", "Title cannot be empty"
+                ));
+            }
+
+            Playlist updatedPlaylist = playlistService.updatePlaylist(id, newTitle.trim(), newDescription.trim());
+            return ResponseEntity.ok().body(Map.of(
+                    "status", "success",
+                    "title", updatedPlaylist.getName()
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "status", "error",
+                    "message", e.getMessage()
+            ));
+        }
+    }
+
 }

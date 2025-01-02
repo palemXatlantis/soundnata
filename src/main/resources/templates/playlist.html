@@ -64,6 +64,7 @@
                 <div class="flex flex-col ml-6">
                     <h2 class="text- xl font-bold mb-6">Playlist</h2>
                     <h2 id="playlistTitle" class="text-4xl font-bold mb-6" th:text="${playlist.name}">Chill Music</h2>
+                    <p id="playlistDescription" class="text" th:text="${playlist.description}">aku adalah description</p>
                     <h2 class="text-xl font-bold mb-1" th:text="${playlist.user.username}">username</h2>
                     <div class="flex items-center space-x-4">
                         <button id="playAllButton" class="playAll-button">
@@ -435,7 +436,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('editTitleModal');
         const playlistTitle = document.getElementById('playlistTitle');
+        const playlistDescription = document.getElementById('playlistDescription');
         const editTitleInput = document.getElementById('editTitleInput');
+        const editDescriptionInput = document.getElementById('editDescriptionInput');
         const saveButton = document.getElementById('saveEditTitle');
         const cancelButton = document.getElementById('cancelEditTitle');
         const csrfToken = document.querySelector("meta[name='_csrf']").content;
@@ -444,6 +447,7 @@
         // Show modal when clicking the title
         playlistTitle.addEventListener('click', function() {
             editTitleInput.value = playlistTitle.textContent;
+            editDescriptionInput.value = playlistDescription.textContent;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             editTitleInput.focus();
@@ -461,26 +465,30 @@
         // Save the new title
         saveButton.addEventListener('click', async function() {
             const newTitle = editTitleInput.value.trim();
+            const newDescription = editDescriptionInput.value.trim();
             if (!newTitle) return;
 
             const playlistId = window.location.pathname.split('/').pop();
 
             try {
-                const response = await fetch(`/api/playlists/${playlistId}/title`, {
-                    method: 'PUT',
+                const response = await fetch(`/playlist/${playlistId}/update`, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         [csrfHeader]: csrfToken
                     },
-                    body: JSON.stringify({ title: newTitle })
+                    body: JSON.stringify({ title: newTitle, description: newDescription })
                 });
 
-                if (response.ok) {
-                    playlistTitle.textContent = newTitle;
+                const result = await response.json();
+
+                if (response.ok && result.status === 'success') {
+                    playlistTitle.textContent = result.title;
                     modal.classList.remove('flex');
                     modal.classList.add('hidden');
+                    window.location.reload();
                 } else {
-                    alert('Failed to update playlist title');
+                    alert(result.message || 'Failed to update playlist title');
                 }
             } catch (error) {
                 console.error('Error updating playlist title:', error);

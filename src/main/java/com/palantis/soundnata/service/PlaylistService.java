@@ -24,6 +24,22 @@ public class PlaylistService {
     @Autowired
     private UserService userService;
 
+    public Playlist updatePlaylist(Long playlistId, String newTitle, String newDescription) {
+        Playlist playlist = playlistRepository.findById(playlistId)
+                .orElseThrow(() -> new RuntimeException("Playlist not found"));
+
+        // Validasi user yang sedang login adalah pemilik playlist
+        User currentUser = userService.getLoggedInUser();
+        if (!playlist.getUser().getId().equals(currentUser.getId())) {
+            throw new RuntimeException("You don't have permission to update this playlist");
+        }
+
+        // Update judul playlist
+        playlist.setName(newTitle);
+        playlist.setDescription(newDescription);
+        return playlistRepository.save(playlist);
+    }
+
     public List<Playlist> getAllPlaylists() {
         return playlistRepository.findAll();
     }
