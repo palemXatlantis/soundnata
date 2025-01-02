@@ -16,6 +16,11 @@
     <main id="mainSection" class="flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
         <section class="bg-gray-700-90 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h2>
+            <!-- Empty state for Songs -->
+            <div th:if="${#lists.isEmpty(results['songs'])}"
+                 class="bg-gray-800 rounded-lg p-8 text-center">
+                <p class="text-gray-400 text-lg">No songs found</p>
+            </div>
             <div class="grid grid-cols-5 gap-6">
                 <div th:each="song : ${results['songs']}" class="music-box bg-gray-800 p-4 rounded-lg">
                     <img
@@ -42,6 +47,11 @@
         <!-- Playlist Section -->
         <section class="bg-gray-700-90 rounded-lg p-6 mt-8">
             <h2 class="text-2xl font-bold mb-4">Playlists</h2>
+            <!-- Empty state for Playlists -->
+            <div th:if="${#lists.isEmpty(results['playlists'])}"
+                 class="bg-gray-800 rounded-lg p-8 text-center">
+                <p class="text-gray-400 text-lg">No playlists found</p>
+            </div>
             <div class="grid grid-cols-3 gap-6">
                 <div th:each="playlist : ${results['playlists']}" class="bg-gray-800 p-4 rounded-lg">
                     <img
