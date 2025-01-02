@@ -35,3 +35,6 @@ build/
 
 ### Frontend ###
 /src/main/frontend/node_modules
+
+application.log           # Log file for application output
+app.pid                   # File to store the application's process ID
