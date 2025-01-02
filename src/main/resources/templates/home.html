@@ -24,7 +24,8 @@
                             alt="Album Art"
                             class="w-64 h-48 rounded-lg"
                     />
-                    <p th:text="${song.title}" class="text-center"></p>
+                    <p th:text="${song.title}" class="text-white font-bold text-sm"></p>
+                    <p th:text="${song.artist}" class="text-gray-400 text-sm"></p>
                     <div class="flex justify-center mt-2 space-x-2">
                         <button
                                 class="play-song play-pause-button"

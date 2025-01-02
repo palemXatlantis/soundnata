@@ -709,3 +709,24 @@
     box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.3);
 }
 
+/* Button Play */
+.play-song {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #4a5568;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+}
+
+/* Button Play Hover Effect */
+.play-song:hover {
+    background-color: #1a202c; /* Ubah warna saat hover */
+    border: 2px solid white; /* Tambahkan border putih */
+    transform: scale(1.1); /* Sedikit membesar */
+}
+
+
