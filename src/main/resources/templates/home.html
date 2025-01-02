@@ -47,11 +47,11 @@
         <section class="bg-gray-700-90 rounded-lg p-6 mt-8">
             <h2 class="text-2xl font-bold mb-4">Playlists</h2>
             <div class="grid grid-cols-3 gap-6">
-                <div th:each="playlist : ${playlists}" class="bg-gray-800 p-4 rounded-lg">
+                <div th:each="playlist : ${playlists}" class="bg-gray-800 p-4 rounded-lg playlist-box">
                     <img
                             src="/images/question_mark.jpg"
                             alt="Playlist Cover"
-                            class="w-64 h-48 rounded-lg"
+                            class="rounded-lg"
                     />
                     <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
                     <a
@@ -62,6 +62,7 @@
                 </div>
             </div>
         </section>
+
     </main>
     <!-- Lyrics Box -->
     <section id="lyricsSection" class="hidden flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
