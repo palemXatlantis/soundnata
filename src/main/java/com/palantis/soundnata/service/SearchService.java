@@ -32,8 +32,8 @@ public class SearchService {
         List<Song> songs = songRepository.findByTitleContainingIgnoreCaseOrArtistContainingIgnoreCase(keyword, keyword);
         results.put("songs", songs);
 
-        // Pencarian playlist (opsional, bisa menampilkan playlist jika keyword terkait).
-        List<Playlist> playlists = playlistRepository.findByNameContainingIgnoreCase(keyword);
+        // Pencarian playlist berdasarkan nama playlist atau judul lagu di dalamnya
+        List<Playlist> playlists = playlistRepository.findByNameContainingIgnoreCaseOrSongs_TitleContainingIgnoreCase(keyword, keyword);
         results.put("playlists", playlists);
 
         return results;

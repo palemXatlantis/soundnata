@@ -18,13 +18,14 @@
         <section class="bg-gray-700-90  rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Music</h2>
             <div class="grid grid-cols-5 gap-4">
-                <div th:each="song : ${songs}" class="bg-gray-800 p-4 rounded-lg">
+                <div th:each="song : ${songs}" class="bg-gray-800 p-4 rounded-lg music-box">
                     <img
                             th:src="${song.imagePath}"
                             alt="Album Art"
                             class="w-64 h-48 rounded-lg"
                     />
-                    <p th:text="${song.title}" class="text-center"></p>
+                    <p th:text="${song.title}" class="text-white font-bold text-sm"></p>
+                    <p th:text="${song.artist}" class="text-gray-400 text-sm"></p>
                     <div class="flex justify-center mt-2 space-x-2">
                         <button
                                 class="play-song play-pause-button"
@@ -46,12 +47,12 @@
         <!-- Playlist Section -->
         <section class="bg-gray-700-90 rounded-lg p-6 mt-8">
             <h2 class="text-2xl font-bold mb-4">Playlists</h2>
-            <div class="grid grid-cols-3 gap-6">
-                <div th:each="playlist : ${playlists}" class="bg-gray-800 p-4 rounded-lg">
+            <div class="grid grid-cols-5 gap-4">
+                <div th:each="playlist : ${playlists}" class="bg-gray-800 p-4 rounded-lg playlist-box">
                     <img
-                            src="/images/question_mark.jpg"
+                            src="/images/walterwhite.jpg"
                             alt="Playlist Cover"
-                            class="w-64 h-48 rounded-lg"
+                            class="rounded-lg"
                     />
                     <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
                     <a
@@ -62,6 +63,8 @@
                 </div>
             </div>
         </section>
+
+
     </main>
     <!-- Lyrics Box -->
     <section id="lyricsSection" class="hidden flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">

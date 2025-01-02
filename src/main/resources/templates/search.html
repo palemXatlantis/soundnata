@@ -16,26 +16,31 @@
     <main id="mainSection" class="flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
         <section class="bg-gray-700-90 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h2>
+            <!-- Empty state for Songs -->
+            <div th:if="${#lists.isEmpty(results['songs'])}"
+                 class="bg-gray-800 rounded-lg p-8 text-center">
+                <p class="text-gray-400 text-lg">No songs found</p>
+            </div>
             <div class="grid grid-cols-5 gap-6">
-                <!-- Songs Section -->
-                <div th:each="song : ${results['songs']}" class="bg-gray-800 p-4 rounded-lg">
+                <div th:each="song : ${results['songs']}" class="music-box bg-gray-800 p-4 rounded-lg">
                     <img
                             th:src="${song.imagePath}"
                             alt="Album Art"
-                            class="w-64 h-48 rounded-lg"
                     />
-                    <p th:text="${song.title}" class="text-center text-white font-bold mt-2"></p>
-                    <p th:text="${song.artist}" class="text-center text-gray-400 text-sm"></p>
-                    <button
-                            class="play-song play-pause-button"
+                    <p th:text="${song.title}" class="text-white font-bold"></p>
+                    <p th:text="${song.artist}" class="text-gray-400 text-sm"></p>
+                    <div class="flex justify-center mt-2 space-x-2">
+                        <button
+                            class="play-song"
                             th:data-id="${song.id}"
                             th:data-title="${song.title}"
                             th:data-artist="${song.artist}"
                             th:data-url="${song.filePath}"
                             th:data-lyrics="${song.lyrics}"
                             th:data-image="${song.imagePath}">
-                        <div class="icon"></div>
-                    </button>
+                            <div class="icon"></div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -43,15 +48,19 @@
         <!-- Playlist Section -->
         <section class="bg-gray-700-90 rounded-lg p-6 mt-8">
             <h2 class="text-2xl font-bold mb-4">Playlists</h2>
-            <div class="grid grid-cols-3 gap-6">
-                <div th:each="playlist : ${results['playlists']}" class="bg-gray-800 p-4 rounded-lg">
+            <!-- Empty state for Playlists -->
+            <div th:if="${#lists.isEmpty(results['playlists'])}"
+                 class="bg-gray-800 rounded-lg p-8 text-center">
+                <p class="text-gray-400 text-lg">No playlists found</p>
+            </div>
+            <div class="grid grid-cols-5 gap-4">
+                <div th:each="playlist : ${results['playlists']}" class="playlist-box">
                     <img
-                            src="/images/question_mark.jpg"
+                            src="/images/walterwhite.jpg"
                             alt="Playlist Cover"
-                            class="w-64 h-48 rounded-lg"
+                            class="playlist-image"
                     />
                     <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
-                    <p class="text-center text-gray-400 text-sm"></p>
                     <a
                             th:href="@{/playlist/{id}(id=${playlist.id})}"
                             class="bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white">
@@ -60,6 +69,7 @@
                 </div>
             </div>
         </section>
+
     </main>
     <!-- Lyrics Box -->
     <section id="lyricsSection" class="hidden flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">

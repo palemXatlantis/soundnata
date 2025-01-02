@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             songArtist: document.getElementById('playerArtist').textContent,
             songImage: document.getElementById('playerImage').src,
             songId: currentSongId,
+            songLyrics: currentLyrics,
             isPlaying: false // Never save as playing
         };
         localStorage.setItem('playbackState', JSON.stringify(state));
@@ -298,6 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Restore display info
         currentSongId = savedState.songId;
         currentSongUrl = savedState.songUrl;
+        currentLyrics = savedState.songLyrics;
         audioPlayer.src = savedState.songUrl;
         document.getElementById('playerTitle').textContent = savedState.songTitle || 'Unknown Title';
         document.getElementById('playerArtist').textContent = savedState.songArtist || 'Unknown Artist';

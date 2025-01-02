@@ -60,7 +60,7 @@
         </div>
         <section style="padding: 32px; padding-bottom: 16px; padding-left: 16px" class="bg-gray-700 rounded-lg p-8 min-h-screen">
             <div class="flex items-center bg-gray-800 p-4 rounded-lg">
-                <img src="/images/question_mark.jpg" alt="Album Art" class="w-48 h-48 rounded-lg mr-6" />
+                <img src="/images/walterwhite.jpg" alt="Album Art" class="w-48 h-48 rounded-lg mr-6" />
                 <div class="flex flex-col ml-6">
                     <h2 class="text- xl font-bold mb-6">Playlist</h2>
                     <h2 id="playlistTitle" class="text-4xl font-bold mb-6" th:text="${playlist.name}">Chill Music</h2>
@@ -88,12 +88,12 @@
             <div class="mt-6">
                 <table class="table-auto w-full">
                     <thead>
-                    <tr class="text-center text-white text-sm border-b border-gray-600">
-                        <th class="py-3 px-4">#</th>
-                        <th class="py-3 px-4">Title</th>
-                        <th class="py-3 px-4">Artist</th>
-                        <th class="py-3 px-4">Duration</th>
-                        <th class="py-3 px-4">Action</th>
+                    <tr class="text-white text-sm border-b border-gray-600">
+                        <th class="py-3 px-4 text-left">#</th>
+                        <th class="py-3 px-4 text-left">Title</th>
+                        <th class="py-3 px-4 text-left">Artist</th>
+                        <th class="py-3 px-4 text-left">Duration</th>
+                        <th class="py-3 px-4 text-left">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -354,6 +354,7 @@
                         setTimeout(async () => {
                             await refreshPlaylistTable(currentPlaylistId);
                         }, 100);
+                        window.location.reload();
                     } else {
                         alert('Failed to add song to playlist');
                     }
