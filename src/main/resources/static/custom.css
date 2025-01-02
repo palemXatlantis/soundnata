@@ -662,3 +662,19 @@
     outline: 3px solid white; /* Outline putih */
     transform: scale(1.05);  /* Sedikit memperbesar box */
 }
+
+.playlist-box {
+    transition: outline 0.3s ease, transform 0.3s ease;
+}
+
+.playlist-box:hover {
+    outline: 3px solid white;
+    transform: scale(1.05);
+}
+
+.playlist-box img {
+    object-fit: cover; /* Membuat gambar dalam box lebih rapi */
+    width: 100%; /* Menyesuaikan lebar gambar dengan box */
+    height: 200px; /* Atur tinggi agar seragam */
+    border-radius: 8px;
+}
