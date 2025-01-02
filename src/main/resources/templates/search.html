@@ -29,7 +29,8 @@
                     />
                     <p th:text="${song.title}" class="text-white font-bold"></p>
                     <p th:text="${song.artist}" class="text-gray-400 text-sm"></p>
-                    <button
+                    <div class="flex justify-center mt-2 space-x-2">
+                        <button
                             class="play-song"
                             th:data-id="${song.id}"
                             th:data-title="${song.title}"
@@ -37,10 +38,10 @@
                             th:data-url="${song.filePath}"
                             th:data-lyrics="${song.lyrics}"
                             th:data-image="${song.imagePath}">
-                        <div class="icon"></div>
-                    </button>
+                            <div class="icon"></div>
+                        </button>
+                    </div>
                 </div>
-
             </div>
         </section>
 
