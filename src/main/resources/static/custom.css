@@ -663,20 +663,49 @@
     transform: scale(1.05);  /* Sedikit memperbesar box */
 }
 
+/* Box Playlist */
 .playlist-box {
-    width: 256px; /* Sama seperti music-box */
-    height: 320px; /* Sama seperti music-box */
-    transition: outline 0.3s ease, transform 0.3s ease;
+    width: 256px; /* Ukuran tetap sama seperti music-box */
+    height: 320px; /* Ukuran tetap sama seperti music-box */
+    display: flex; /* Mengatur tata letak elemen dalam box */
+    flex-direction: column; /* Elemen disusun secara vertikal */
+    justify-content: space-between; /* Memberi ruang antara elemen */
+    align-items: center; /* Elemen diatur di tengah secara horizontal */
+    transition: outline 0.3s ease, transform 0.3s ease; /* Tambahkan efek transisi */
+    padding: 16px;
+    background-color: #2d3748; /* Warna dasar */
+    border-radius: 8px;
 }
 
+/* Hover Effect */
 .playlist-box:hover {
-    outline: 3px solid white;
-    transform: scale(1.05);
+    outline: 3px solid white; /* Outline putih saat di-hover */
+    transform: scale(1.05); /* Sedikit membesar */
+    box-shadow: 0px 8px 16px rgba(255, 255, 255, 0.2); /* Efek bayangan */
+    cursor: pointer; /* Ubah pointer menjadi tangan */
 }
 
 .playlist-box img {
-    object-fit: cover; /* Membuat gambar dalam box lebih rapi */
-    width: 100%; /* Menyesuaikan lebar gambar dengan box */
-    height: 200px; /* Atur tinggi agar seragam */
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     border-radius: 8px;
 }
+
+.playlist-box h3 {
+    margin: 10px 0;
+}
+
+.playlist-box a {
+    text-align: center;
+    margin-top: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.playlist-box a:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.3);
+}
+
