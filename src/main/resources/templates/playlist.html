@@ -354,6 +354,7 @@
                         setTimeout(async () => {
                             await refreshPlaylistTable(currentPlaylistId);
                         }, 100);
+                        window.location.reload();
                     } else {
                         alert('Failed to add song to playlist');
                     }
