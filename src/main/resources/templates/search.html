@@ -53,15 +53,14 @@
                  class="bg-gray-800 rounded-lg p-8 text-center">
                 <p class="text-gray-400 text-lg">No playlists found</p>
             </div>
-            <div class="grid grid-cols-3 gap-6">
-                <div th:each="playlist : ${results['playlists']}" class="bg-gray-800 p-4 rounded-lg">
+            <div class="grid grid-cols-5 gap-4">
+                <div th:each="playlist : ${results['playlists']}" class="playlist-box">
                     <img
-                            src="/images/question_mark.jpg"
+                            src="/images/walterwhite.jpg"
                             alt="Playlist Cover"
-                            class="w-64 h-48 rounded-lg"
+                            class="playlist-image"
                     />
                     <h3 th:text="${playlist.name}" class="text-center text-white font-bold mt-2"></h3>
-                    <p class="text-center text-gray-400 text-sm"></p>
                     <a
                             th:href="@{/playlist/{id}(id=${playlist.id})}"
                             class="bg-transparent text-white hover:scale-105 transition-transform px-4 py-1 rounded-full border border-white">
@@ -70,6 +69,7 @@
                 </div>
             </div>
         </section>
+
     </main>
     <!-- Lyrics Box -->
     <section id="lyricsSection" class="hidden flex-1 rounded-lg p-8 space-y-8 overflow-y-auto">
