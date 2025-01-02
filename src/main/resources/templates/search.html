@@ -17,17 +17,15 @@
         <section class="bg-gray-700-90 rounded-lg p-6">
             <h2 class="text-2xl font-bold mb-4">Search Results for "<span th:text="${query}"></span>"</h2>
             <div class="grid grid-cols-5 gap-6">
-                <!-- Songs Section -->
-                <div th:each="song : ${results['songs']}" class="bg-gray-800 p-4 rounded-lg">
+                <div th:each="song : ${results['songs']}" class="music-box bg-gray-800 p-4 rounded-lg">
                     <img
                             th:src="${song.imagePath}"
                             alt="Album Art"
-                            class="w-64 h-48 rounded-lg"
                     />
-                    <p th:text="${song.title}" class="text-center text-white font-bold mt-2"></p>
-                    <p th:text="${song.artist}" class="text-center text-gray-400 text-sm"></p>
+                    <p th:text="${song.title}" class="text-white font-bold"></p>
+                    <p th:text="${song.artist}" class="text-gray-400 text-sm"></p>
                     <button
-                            class="play-song play-pause-button"
+                            class="play-song"
                             th:data-id="${song.id}"
                             th:data-title="${song.title}"
                             th:data-artist="${song.artist}"
@@ -37,6 +35,7 @@
                         <div class="icon"></div>
                     </button>
                 </div>
+
             </div>
         </section>
 
